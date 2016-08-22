@@ -34,9 +34,9 @@ namespace noob
 
 		std::string to_string() const
 		{	
-		fmt::MemoryWriter w;
-		w << m[0] << ", " << m[3] << ", " << m[6] << "\n" << m[1] << ", " << m[4] << ", " << m[7] << "\n" << m[2] << ", " << m[5] << ", " << m[8] << "\n";
-		return w.str();
+			fmt::MemoryWriter w;
+			w << m[0] << ", " << m[3] << ", " << m[6] << "\n" << m[1] << ", " << m[4] << ", " << m[7] << "\n" << m[2] << ", " << m[5] << ", " << m[8] << "\n";
+			return w.str();
 		}
 
 

@@ -230,7 +230,6 @@ namespace noob
 		}
 
 
-
 		std::array<float,4> q;
 	};
 }
