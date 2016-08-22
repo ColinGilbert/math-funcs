@@ -74,7 +74,7 @@ namespace noob
 				return *this;
 			}
 
-			T& operator[](int x) noexcept(true)
+			T& operator[](uint32_t x) noexcept(true)
 			{
 				return q[x];
 			}

@@ -27,7 +27,7 @@ namespace noob
 				m[8] = i;
 			}
 
-			T& operator[](int x) noexcept(true)
+			T& operator[](uint32_t x) noexcept(true)
 			{
 				return m[x];
 			}

@@ -216,6 +216,155 @@ namespace noob
 		else return false;
 	}
 
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// QUATERNION FUNCTIONS:
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	versor quat_from_axis_rad(float radians, float x, float y, float z) noexcept(true)
+	{
+		versor result;
+		result.q[0] = cos (radians / 2.0);
+		result.q[1] = sin (radians / 2.0) * x;
+		result.q[2] = sin (radians / 2.0) * y;
+		result.q[3] = sin (radians / 2.0) * z;
+		return result;
+	}
+
+	versor quat_from_axis_deg (float degrees, float x, float y, float z) noexcept(true)
+	{
+		return quat_from_axis_rad (ONE_DEG_IN_RAD * degrees, x, y, z);
+	}
+
+	}
+
+	versor normalize(const versor& q) noexcept(true)
+	{
+		// norm(q) = q / magnitude (q)
+		// magnitude (q) = sqrt (w*w + x*x...)
+		// only compute sqrt if interior sum != 1.0
+		versor qq(q);
+		float sum = qq.q[0] * qq.q[0] + qq.q[1] * qq.q[1] + qq.q[2] * qq.q[2] + qq.q[3] * qq.q[3];
+		// NB: floats have min 6 digits of precision
+		const float thresh = 0.0001f;
+		if (fabs (1.0f - sum) < thresh)
+		{
+			return q;
+		}
+		float mag = sqrt(sum);
+		return qq / mag;
+	}
+
+	float dot(const versor& q, const versor& r) noexcept(true)
+	{
+		return q.q[0] * r.q[0] + q.q[1] * r.q[1] + q.q[2] * r.q[2] + q.q[3] * r.q[3];
+	}
+
+	versor slerp(const versor& q, const versor& r, float t) noexcept(true)
+	{
+		versor temp_q(q);
+		// angle between q0-q1
+		float cos_half_theta = dot(temp_q, r);
+		// as found here http://stackoverflow.com/questions/2886606/flipping-issue-when-interpolating-rotations-using-quaternions
+		// if dot product is negative then one quaternion should be negated, to make
+		// it take the short way around, rather than the long way
+		// yeah! and furthermore Susan, I had to recalculate the d.p. after this
+
+		if (cos_half_theta < 0.0f)
+		{
+			for (int i = 0; i < 4; i++)
+			{
+				temp_q.q[i] *= -1.0f;
+			}
+			cos_half_theta = dot (temp_q, r);
+		}
+		// if qa=qb or qa=-qb then theta = 0 and we can return qa
+		if (fabs(cos_half_theta) >= 1.0f)
+		{
+			return temp_q;
+		}
+		// Calculate temporary values
+		float sin_half_theta = sqrt(1.0f - cos_half_theta * cos_half_theta);
+		// if theta = 180 degrees then result is not fully defined
+		// we could rotate around any axis normal to qa or qb
+		versor result;
+		if (fabs(sin_half_theta) < 0.001f)
+		{
+			for (int i = 0; i < 4; i++)
+			{
+				result.q[i] = (1.0f - t) * temp_q.q[i] + t * r.q[i];
+			}
+			return result;
+		}
+		float half_theta = acos(cos_half_theta);
+		float a = sin((1.0f - t) * half_theta) / sin_half_theta;
+		float b = sin(t * half_theta) / sin_half_theta;
+		for (int i = 0; i < 4; i++)
+		{
+			result.q[i] = temp_q.q[i] * a + r.q[i] * b;
+		}
+		return result;
+	}
+
+	versor quat_from_mat4(const mat4& m) noexcept(true)
+	{
+		glm::mat4 mm = glm::make_mat4(&m.m[0]);
+		glm::quat q = glm::quat_cast(mm);
+		noob::versor qq;
+		qq.q[0] = q[0];
+		qq.q[1] = q[1];
+		qq.q[2] = q[2];
+		qq.q[3] = q[3];
+		return qq;
+	}
+
+	vec3 lerp(const noob::vec3& a, const noob::vec3& b, float t) noexcept(true)
+	{ 
+		return a + (b - a) * t;
+	}
+
+
+	versor versor_from_axis_rad(float radians, float x, float y, float z) noexcept(true)
+	{
+		versor result;
+		result.q[0] = cos (radians / 2.0);
+		result.q[1] = sin (radians / 2.0) * x;
+		result.q[2] = sin (radians / 2.0) * y;
+		result.q[3] = sin (radians / 2.0) * z;
+		return result;
+	}
+
+	versor versor_from_axis_deg(float degrees, float x, float y, float z) noexcept(true)
+	{
+		return versor_from_axis_rad (ONE_DEG_IN_RAD * degrees, x, y, z);
+	}
+
+	mat4 versor_to_mat4(const noob::versor& q) noexcept(true)
+	{
+		const float w = q.q[0];
+		const float x = q.q[1];
+		const float y = q.q[2];
+		const float z = q.q[3];
+		return mat4 (1.0f - 2.0f * y * y - 2.0f * z * z,
+				2.0f * x * y + 2.0f * w * z,
+				2.0f * x * z - 2.0f * w * y,
+				0.0f,
+				2.0f * x * y - 2.0f * w * z,
+				1.0f - 2.0f * x * x - 2.0f * z * z,
+				2.0f * y * z + 2.0f * w * x,
+				0.0f,
+				2.0f * x * z + 2.0f * w * y,
+				2.0f * y * z - 2.0f * w * x,
+				1.0f - 2.0f * x * x - 2.0f * y * y,
+				0.0f,
+				0.0f,
+				0.0f,
+				0.0f,
+				1.0f
+			    );
+	}
+
+
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// MATRIX FUNCTIONS:
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -556,153 +705,6 @@ namespace noob
 		m.m[15] = 1.0;
 		return m;
 	}
-
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// QUATERNION FUNCTIONS:
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*
-	versor quat_from_axis_rad(float radians, float x, float y, float z) noexcept(true)
-	{
-		versor result;
-		result.q[0] = cos (radians / 2.0);
-		result.q[1] = sin (radians / 2.0) * x;
-		result.q[2] = sin (radians / 2.0) * y;
-		result.q[3] = sin (radians / 2.0) * z;
-		return result;
-	}
-
-	versor quat_from_axis_deg (float degrees, float x, float y, float z) noexcept(true)
-	{
-		return quat_from_axis_rad (ONE_DEG_IN_RAD * degrees, x, y, z);
-	}
-*/
-
-	versor normalize(const versor& q) noexcept(true)
-	{
-		// norm(q) = q / magnitude (q)
-		// magnitude (q) = sqrt (w*w + x*x...)
-		// only compute sqrt if interior sum != 1.0
-		versor qq(q);
-		float sum = qq.q[0] * qq.q[0] + qq.q[1] * qq.q[1] + qq.q[2] * qq.q[2] + qq.q[3] * qq.q[3];
-		// NB: floats have min 6 digits of precision
-		const float thresh = 0.0001f;
-		if (fabs (1.0f - sum) < thresh)
-		{
-			return q;
-		}
-		float mag = sqrt(sum);
-		return qq / mag;
-	}
-
-	float dot(const versor& q, const versor& r) noexcept(true)
-	{
-		return q.q[0] * r.q[0] + q.q[1] * r.q[1] + q.q[2] * r.q[2] + q.q[3] * r.q[3];
-	}
-
-	versor slerp(const versor& q, const versor& r, float t) noexcept(true)
-	{
-		versor temp_q(q);
-		// angle between q0-q1
-		float cos_half_theta = dot(temp_q, r);
-		// as found here http://stackoverflow.com/questions/2886606/flipping-issue-when-interpolating-rotations-using-quaternions
-		// if dot product is negative then one quaternion should be negated, to make
-		// it take the short way around, rather than the long way
-		// yeah! and furthermore Susan, I had to recalculate the d.p. after this
-
-		if (cos_half_theta < 0.0f)
-		{
-			for (int i = 0; i < 4; i++)
-			{
-				temp_q.q[i] *= -1.0f;
-			}
-			cos_half_theta = dot (temp_q, r);
-		}
-		// if qa=qb or qa=-qb then theta = 0 and we can return qa
-		if (fabs(cos_half_theta) >= 1.0f)
-		{
-			return temp_q;
-		}
-		// Calculate temporary values
-		float sin_half_theta = sqrt(1.0f - cos_half_theta * cos_half_theta);
-		// if theta = 180 degrees then result is not fully defined
-		// we could rotate around any axis normal to qa or qb
-		versor result;
-		if (fabs(sin_half_theta) < 0.001f)
-		{
-			for (int i = 0; i < 4; i++)
-			{
-				result.q[i] = (1.0f - t) * temp_q.q[i] + t * r.q[i];
-			}
-			return result;
-		}
-		float half_theta = acos(cos_half_theta);
-		float a = sin((1.0f - t) * half_theta) / sin_half_theta;
-		float b = sin(t * half_theta) / sin_half_theta;
-		for (int i = 0; i < 4; i++)
-		{
-			result.q[i] = temp_q.q[i] * a + r.q[i] * b;
-		}
-		return result;
-	}
-
-	versor quat_from_mat4(const mat4& m) noexcept(true)
-	{
-		glm::mat4 mm = glm::make_mat4(&m.m[0]);
-		glm::quat q = glm::quat_cast(mm);
-		noob::versor qq;
-		qq.q[0] = q[0];
-		qq.q[1] = q[1];
-		qq.q[2] = q[2];
-		qq.q[3] = q[3];
-		return qq;
-	}
-
-	vec3 lerp(const noob::vec3& a, const noob::vec3& b, float t) noexcept(true)
-	{ 
-		return a + (b - a) * t;
-	}
-
-
-	versor versor_from_axis_rad(float radians, float x, float y, float z) noexcept(true)
-	{
-		versor result;
-		result.q[0] = cos (radians / 2.0);
-		result.q[1] = sin (radians / 2.0) * x;
-		result.q[2] = sin (radians / 2.0) * y;
-		result.q[3] = sin (radians / 2.0) * z;
-		return result;
-	}
-
-	versor versor_from_axis_deg(float degrees, float x, float y, float z) noexcept(true)
-	{
-		return versor_from_axis_rad (ONE_DEG_IN_RAD * degrees, x, y, z);
-	}
-
-	mat4 versor_to_mat4(const noob::versor& q) noexcept(true)
-	{
-		const float w = q.q[0];
-		const float x = q.q[1];
-		const float y = q.q[2];
-		const float z = q.q[3];
-		return mat4 (1.0f - 2.0f * y * y - 2.0f * z * z,
-				2.0f * x * y + 2.0f * w * z,
-				2.0f * x * z - 2.0f * w * y,
-				0.0f,
-				2.0f * x * y - 2.0f * w * z,
-				1.0f - 2.0f * x * x - 2.0f * z * z,
-				2.0f * y * z + 2.0f * w * x,
-				0.0f,
-				2.0f * x * z + 2.0f * w * y,
-				2.0f * y * z - 2.0f * w * x,
-				1.0f - 2.0f * x * x - 2.0f * y * y,
-				0.0f,
-				0.0f,
-				0.0f,
-				0.0f,
-				1.0f
-			    );
-	}
-
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// CONVERSION UTILITY FUNCTIONS:
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -779,7 +781,7 @@ namespace noob
 		noob::versor qq;
 		qq.q[0] = arg[0];
 		qq.q[1] = arg[1];
-		qq.q[2] = argq[2];
+		qq.q[2] = arg[2];
 		qq.q[3] = arg[3];
 		return qq;
 	}

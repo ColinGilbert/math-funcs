@@ -39,18 +39,18 @@ namespace noob
 
 			mat4_type(const std::array<T,16>& mm) noexcept(true)
 			{
-				for (int i = 0; i < 16; i++)
+				for (uint32_t i = 0; i < 16; i++)
 				{
 					m[i] = mm[i];
 				}
 			}
 
-			T& operator[](int x) noexcept(true)
+			T& operator[](uint32_t x) noexcept(true)
 			{
 				return m[x];
 			}
 
-			vec4 operator*(const vec4& rhs) const noexcept(true)
+			vec4_type<T> operator*(const vec4_type<T>& rhs) const noexcept(true)
 			{
 				// 0x + 4y + 8z + 12w
 				T x = m[0] * rhs.v[0] +
@@ -72,7 +72,7 @@ namespace noob
 					m[7] * rhs.v[1] +
 					m[11] * rhs.v[2] +
 					m[15] * rhs.v[3];
-				return vec4 (x, y, z, w);
+				return vec4_type<T>(x, y, z, w);
 			}
 
 			mat4_type operator*(const mat4_type& rhs) const noexcept(true)
@@ -80,13 +80,13 @@ namespace noob
 				mat4_type r;
 				std::fill_n(&r.m[0], 16, 0.0);
 				
-				int r_index = 0;
-				for (int col = 0; col < 4; col++)
+				uint32_t r_index = 0;
+				for (uint32_t col = 0; col < 4; col++)
 				{
-					for (int row = 0; row < 4; row++) 
+					for (uint32_t row = 0; row < 4; row++) 
 					{
 						T sum = 0.0f;
-						for (int i = 0; i < 4; i++) 
+						for (uint32_t i = 0; i < 4; i++) 
 						{
 							sum += rhs.m[i + col * 4] * m[row + i * 4];
 						}
@@ -99,7 +99,7 @@ namespace noob
 
 			mat4_type& operator=(const mat4_type& rhs) noexcept(true)
 			{
-				for (int i = 0; i < 16; i++)
+				for (uint32_t i = 0; i < 16; i++)
 				{
 					m[i] = rhs.m[i];
 				}
