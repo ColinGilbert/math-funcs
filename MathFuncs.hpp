@@ -40,6 +40,7 @@ typedef OpenMesh::TriMesh_ArrayKernelT<> TriMesh;
 #include "Mat4.hpp"
 #include "MathUtilTypes.hpp"
 
+
 namespace noob
 {
 
@@ -83,8 +84,7 @@ namespace noob
 		noob::vec3 min, max;
 	};
 
-	// TODO: Find out more about the semantics of noexcept on a class declaration...
-	struct cubic_region noexcept(true)
+	struct cubic_region
 	{
 		vec3 lower_corner, upper_corner;
 	};
@@ -291,7 +291,7 @@ namespace noob
 		   broken) */
 		if (0.0f == det)
 		{
-			logger::log("WARNING. matrix has no determinant. can not invert");
+			// logger::log("WARNING. matrix has no determinant. can not invert");
 			return mm;
 		}
 		float inv_det = 1.0f / det;
@@ -408,7 +408,7 @@ namespace noob
 
 	mat4 rotate(const mat4& m, const versor& v) noexcept(true)
 	{
-		return quat_to_mat4(v) * m;
+		return versor_to_mat4(v) * m;
 	}
 
 	mat4 rotate_x_deg(const mat4& m, float deg) noexcept(true)
@@ -576,7 +576,7 @@ namespace noob
 		return quat_from_axis_rad (ONE_DEG_IN_RAD * degrees, x, y, z);
 	}
 
-	mat4 quat_to_mat4 (const versor& q) noexcept(true)
+	mat4 versor_to_mat4 (const versor& q) noexcept(true)
 	{
 		const float w = q.q[0];
 		const float x = q.q[1];

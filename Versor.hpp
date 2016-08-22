@@ -19,14 +19,6 @@ namespace noob
 				q[3] = w;
 			}
 
-			versor_type(const noob::vec4& v) noexcept(true)
-			{
-				q[0] = v[0];
-				q[1] = v[1];
-				q[2] = v[2];
-				q[3] = v[3];
-			}
-
 			versor_type operator/(T rhs) const noexcept(true)
 			{
 				versor_type result;
