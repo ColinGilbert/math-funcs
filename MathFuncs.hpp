@@ -90,30 +90,18 @@ namespace noob
 	};
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// PACKING FUNCTIONS:
+	// INT-PACKING FUNCTIONS:
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	uint64_t pack_32_to_64(uint32_t x, uint32_t y) noexcept(true)
 	{
-		return _cast<uint64_t>(x) << 32 | y;
+		return static_cast<uint64_t>(x) << 32 | y;
 	}
 
 	std::tuple<uint32_t, uint32_t> pack_64_to_32(uint64_t arg) noexcept(true)
 	{
-		uint32_t x = _cast<uint32_t>(arg >> 32);
-		uint32_t y = _cast<uint32_t>(x);
-		return std::make_tuple(x,y);
-	}
-
-	uint64_t pack_32_to_64(uint32_t x, uint32_t y) noexcept(true)
-	{
-		return _cast<uint64_t>(x) << 32 | y;
-	}
-
-	std::tuple<uint32_t, uint32_t> pack_64_to_32(uint64_t arg) noexcept(true)
-	{
-		uint32_t x = _cast<uint32_t>(arg >> 32);
-		uint32_t y = _cast<uint32_t>(x);
+		uint32_t x = static_cast<uint32_t>(arg >> 32);
+		uint32_t y = static_cast<uint32_t>(x);
 		return std::make_tuple(x,y);
 	}
 
