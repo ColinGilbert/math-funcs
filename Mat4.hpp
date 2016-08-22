@@ -77,7 +77,9 @@ namespace noob
 
 			mat4_type operator*(const mat4_type& rhs) const noexcept(true)
 			{
-				mat4_type r = mat4_type::zero();
+				mat4_type r;
+				std::fill_n(&r.m[0], 16, 0.0);
+				
 				int r_index = 0;
 				for (int col = 0; col < 4; col++)
 				{
