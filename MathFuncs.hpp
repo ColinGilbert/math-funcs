@@ -43,7 +43,6 @@ typedef OpenMesh::TriMesh_ArrayKernelT<> TriMesh;
 
 namespace noob
 {
-
 	typedef vec2_type<float> vec2;
 	typedef vec3_type<float> vec3;
 	typedef vec4_type<float> vec4;
@@ -236,7 +235,6 @@ namespace noob
 		return quat_from_axis_rad (ONE_DEG_IN_RAD * degrees, x, y, z);
 	}
 
-	}
 
 	versor normalize(const versor& q) noexcept(true)
 	{
