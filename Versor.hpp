@@ -47,13 +47,6 @@ namespace noob
 				return result;
 			}
 
-			std::string to_string() const noexcept(true)
-			{
-				fmt::MemoryWriter w;
-				w << "(" << q[0] << ", " << q[1] << ", " << q[2] << ", " << q[3] << ")";
-				return w.str();
-			}
-
 			versor_type operator*(const versor_type& rhs) const noexcept(true)
 			{
 				versor_type result;
@@ -93,6 +86,14 @@ namespace noob
 			{
 				return q[x];
 			}
+
+			std::string to_string() const noexcept(true)
+			{
+				fmt::MemoryWriter w;
+				w << "(" << q[0] << ", " << q[1] << ", " << q[2] << ", " << q[3] << ")";
+				return w.str();
+			}
+
 
 			std::array<T,4> q;
 		};
