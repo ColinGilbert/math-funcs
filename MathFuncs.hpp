@@ -113,7 +113,7 @@ namespace noob
 		return (T(0) < val) - (val < T(0));
 	}
 
-	bool approximately_zero(float a) noexcept(true)
+	static bool approximately_zero(float a) noexcept(true)
 	{
 		// http://c-faq.com/fp/fpequal.html
 		if (std::fabs(a) <= NOOB_EPSILON) return false;
@@ -124,7 +124,7 @@ namespace noob
 	// TWO-FLOAT FUNCTIONS(S):
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	bool compare_floats(float a, float b) noexcept(true)
+	static bool compare_floats(float a, float b) noexcept(true)
 	{
 		// http://c-faq.com/fp/fpequal.html
 		if (std::fabs(a - b) <= NOOB_EPSILON * std::fabs(a)) return false;
@@ -135,12 +135,12 @@ namespace noob
 	// VECTOR FUNCTIONS:
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	noob::vec3 negate(const noob::vec3& arg) noexcept(true)
+	static noob::vec3 negate(const noob::vec3& arg) noexcept(true)
 	{
 		return arg * -1.0;
 	}
 
-	bool vec3_equality(const vec3& first, const vec3& second) noexcept(true)
+	static bool vec3_equality(const vec3& first, const vec3& second) noexcept(true)
 	{
 		for (size_t i = 0; i < 3; ++i)
 		{
@@ -149,18 +149,18 @@ namespace noob
 		return true;
 	}
 
-	float length_squared(const vec3& v) noexcept(true)
+	static float length_squared(const vec3& v) noexcept(true)
 	{
 		return v.v[0] * v.v[0] + v.v[1] * v.v[1] + v.v[2] * v.v[2];
 	}
 
 
-	float length(const vec3& v) noexcept(true)
+	static float length(const vec3& v) noexcept(true)
 	{
 		return sqrt (v.v[0] * v.v[0] + v.v[1] * v.v[1] + v.v[2] * v.v[2]);
 	}
 
-	vec3 normalize(const vec3& v) noexcept(true)
+	static vec3 normalize(const vec3& v) noexcept(true)
 	{
 		vec3 vb;
 		float l = length (v);
@@ -173,12 +173,12 @@ namespace noob
 		return vb;
 	}
 
-	float dot(const vec3& a, const vec3& b) noexcept(true)
+	static float dot(const vec3& a, const vec3& b) noexcept(true)
 	{
 		return a.v[0] * b.v[0] + a.v[1] * b.v[1] + a.v[2] * b.v[2];
 	}
 
-	vec3 cross(const vec3& a, const vec3& b) noexcept(true)
+	static vec3 cross(const vec3& a, const vec3& b) noexcept(true)
 	{
 		float x = a.v[1] * b.v[2] - a.v[2] * b.v[1];
 		float y = a.v[2] * b.v[0] - a.v[0] * b.v[2];
@@ -186,7 +186,7 @@ namespace noob
 		return vec3 (x, y, z);
 	}
 
-	float get_squared_dist(const vec3& from, const vec3& to) noexcept(true)
+	static static float get_squared_dist(const vec3& from, const vec3& to) noexcept(true)
 	{
 		float x = (to.v[0] - from.v[0]) * (to.v[0] - from.v[0]);
 		float y = (to.v[1] - from.v[1]) * (to.v[1] - from.v[1]);
@@ -197,18 +197,18 @@ namespace noob
 	/* converts an un-normalized direction into a heading in degrees
 	   NB i suspect that the z is backwards here but i've used in in
 	   several places like this. d'oh! */
-	float direction_to_heading(const vec3& d) noexcept(true)
+	static float direction_to_heading(const vec3& d) noexcept(true)
 	{
 		return atan2 (-d.v[0], -d.v[2]) * ONE_RAD_IN_DEG;
 	}
 
-	vec3 heading_to_direction(float degrees) noexcept(true)
+	static vec3 heading_to_direction(float degrees) noexcept(true)
 	{
 		float rad = degrees * ONE_DEG_IN_RAD;
 		return vec3 (-sinf (rad), 0.0f, -cosf (rad));
 	}
 
-	bool linearly_dependent(const noob::vec3& a, const noob::vec3& b, const noob::vec3& c) noexcept(true)
+	static bool linearly_dependent(const noob::vec3& a, const noob::vec3& b, const noob::vec3& c) noexcept(true)
 	{
 		// if (a cross b) dot c = 0
 		if (dot(cross(a, b), c) == 0.0) return true;
@@ -220,7 +220,7 @@ namespace noob
 	// QUATERNION FUNCTIONS:
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	versor quat_from_axis_rad(float radians, float x, float y, float z) noexcept(true)
+	static versor quat_from_axis_rad(float radians, float x, float y, float z) noexcept(true)
 	{
 		versor result;
 		result.q[0] = cos (radians / 2.0);
@@ -230,13 +230,13 @@ namespace noob
 		return result;
 	}
 
-	versor quat_from_axis_deg (float degrees, float x, float y, float z) noexcept(true)
+	static versor quat_from_axis_deg (float degrees, float x, float y, float z) noexcept(true)
 	{
 		return quat_from_axis_rad (ONE_DEG_IN_RAD * degrees, x, y, z);
 	}
 
 
-	versor normalize(const versor& q) noexcept(true)
+	static versor normalize(const versor& q) noexcept(true)
 	{
 		// norm(q) = q / magnitude (q)
 		// magnitude (q) = sqrt (w*w + x*x...)
@@ -253,12 +253,12 @@ namespace noob
 		return qq / mag;
 	}
 
-	float dot(const versor& q, const versor& r) noexcept(true)
+	static float dot(const versor& q, const versor& r) noexcept(true)
 	{
 		return q.q[0] * r.q[0] + q.q[1] * r.q[1] + q.q[2] * r.q[2] + q.q[3] * r.q[3];
 	}
 
-	versor slerp(const versor& q, const versor& r, float t) noexcept(true)
+	static versor slerp(const versor& q, const versor& r, float t) noexcept(true)
 	{
 		versor temp_q(q);
 		// angle between q0-q1
@@ -304,7 +304,7 @@ namespace noob
 		return result;
 	}
 
-	versor quat_from_mat4(const mat4& m) noexcept(true)
+	static versor quat_from_mat4(const mat4& m) noexcept(true)
 	{
 		glm::mat4 mm = glm::make_mat4(&m.m[0]);
 		glm::quat q = glm::quat_cast(mm);
@@ -316,13 +316,13 @@ namespace noob
 		return qq;
 	}
 
-	vec3 lerp(const noob::vec3& a, const noob::vec3& b, float t) noexcept(true)
+	static vec3 lerp(const noob::vec3& a, const noob::vec3& b, float t) noexcept(true)
 	{ 
 		return a + (b - a) * t;
 	}
 
 
-	versor versor_from_axis_rad(float radians, float x, float y, float z) noexcept(true)
+	static versor versor_from_axis_rad(float radians, float x, float y, float z) noexcept(true)
 	{
 		versor result;
 		result.q[0] = cos (radians / 2.0);
@@ -332,12 +332,12 @@ namespace noob
 		return result;
 	}
 
-	versor versor_from_axis_deg(float degrees, float x, float y, float z) noexcept(true)
+	static versor versor_from_axis_deg(float degrees, float x, float y, float z) noexcept(true)
 	{
 		return versor_from_axis_rad (ONE_DEG_IN_RAD * degrees, x, y, z);
 	}
 
-	mat4 versor_to_mat4(const noob::versor& q) noexcept(true)
+	static mat4 versor_to_mat4(const noob::versor& q) noexcept(true)
 	{
 		const float w = q.q[0];
 		const float x = q.q[1];
@@ -367,21 +367,21 @@ namespace noob
 	// MATRIX FUNCTIONS:
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	mat3 zero_mat3() noexcept(true)
+	static mat3 zero_mat3() noexcept(true)
 	{
 		return mat3(	0.0f, 0.0f, 0.0f,
 				0.0f, 0.0f, 0.0f,
 				0.0f, 0.0f, 0.0f);
 	}
 
-	mat3 identity_mat3() noexcept(true)
+	static mat3 identity_mat3() noexcept(true)
 	{
 		return mat3(	1.0f, 0.0f, 0.0f,
 				0.0f, 1.0f, 0.0f,
 				0.0f, 0.0f, 1.0f);
 	}
 
-	mat4 zero_mat4() noexcept(true)
+	static mat4 zero_mat4() noexcept(true)
 	{
 		return mat4(	0.0f, 0.0f, 0.0f, 0.0f,
 				0.0f, 0.0f, 0.0f, 0.0f,
@@ -389,7 +389,7 @@ namespace noob
 				0.0f, 0.0f, 0.0f, 0.0f);
 	}
 
-	mat4 identity_mat4() noexcept(true)
+	static mat4 identity_mat4() noexcept(true)
 	{
 		return mat4(	1.0f, 0.0f, 0.0f, 0.0f,
 				0.0f, 1.0f, 0.0f, 0.0f,
@@ -399,7 +399,7 @@ namespace noob
 
 	// Returns a scalar value with the determinant for a 4x4 matrix
 	// see http://www.euclideanspace.com/maths/algebra/matrix/functions/determinant/fourD/index.htm
-	float determinant(const mat4& mm) noexcept(true)
+	static float determinant(const mat4& mm) noexcept(true)
 	{
 		return
 			mm.m[12] * mm.m[9] * mm.m[6] * mm.m[3] -
@@ -431,7 +431,7 @@ namespace noob
 
 	/* returns a 16-element array that is the inverse of a 16-element array (4x4
 	   matrix). see http://www.euclideanspace.com/maths/algebra/matrix/functions/inverse/fourD/index.htm */
-	mat4 inverse(const mat4& mm) noexcept(true)
+	static mat4 inverse(const mat4& mm) noexcept(true)
 	{
 		float det = determinant (mm);
 		/* there is no inverse if determinant is zero (not likely unless scale is
@@ -528,7 +528,7 @@ namespace noob
 	}
 
 	// Returns a 16-element array flipped on the main diagonal
-	mat4 transpose(const mat4& mm) noexcept(true)
+	static mat4 transpose(const mat4& mm) noexcept(true)
 	{
 		return mat4 (
 				mm.m[0], mm.m[4], mm.m[8], mm.m[12],
@@ -544,7 +544,7 @@ namespace noob
 
 	// TODO: Find out if rotating a matrix by a quaternion can be done by converting the quat to a matrix and then multiplying the two.
 
-	mat4 translate(const mat4& m, const vec3& v) noexcept(true)
+	static mat4 translate(const mat4& m, const vec3& v) noexcept(true)
 	{
 		mat4 m_t = identity_mat4();
 		m_t.m[12] = v.v[0];
@@ -553,12 +553,12 @@ namespace noob
 		return m_t * m;
 	}
 
-	mat4 rotate(const mat4& m, const versor& v) noexcept(true)
+	static mat4 rotate(const mat4& m, const versor& v) noexcept(true)
 	{
 		return versor_to_mat4(v) * m;
 	}
 
-	mat4 rotate_x_deg(const mat4& m, float deg) noexcept(true)
+	static mat4 rotate_x_deg(const mat4& m, float deg) noexcept(true)
 	{
 		// convert to radians
 		float rad = deg * ONE_DEG_IN_RAD;
@@ -570,7 +570,7 @@ namespace noob
 		return m_r * m;
 	}
 
-	mat4 rotate_y_deg(const mat4& m, float deg) noexcept(true)
+	static mat4 rotate_y_deg(const mat4& m, float deg) noexcept(true)
 	{
 		// convert to radians
 		const float rad = deg * ONE_DEG_IN_RAD;
@@ -582,7 +582,7 @@ namespace noob
 		return m_r * m;
 	}
 
-	mat4 rotate_z_deg(const mat4& m, float deg) noexcept(true)
+	static mat4 rotate_z_deg(const mat4& m, float deg) noexcept(true)
 	{
 		// convert to radians
 		const float rad = deg * ONE_DEG_IN_RAD;
@@ -594,7 +594,7 @@ namespace noob
 		return m_r * m;
 	}
 
-	mat4 scale(const mat4& m, const vec3& v) noexcept(true)
+	static mat4 scale(const mat4& m, const vec3& v) noexcept(true)
 	{
 		mat4 a = identity_mat4();
 		a.m[0] = v.v[0];
@@ -603,7 +603,7 @@ namespace noob
 		return a * m;
 	}
 
-	vec3 get_normal(const std::array<noob::vec3, 3>& vertices) noexcept(true)
+	static vec3 get_normal(const std::array<noob::vec3, 3>& vertices) noexcept(true)
 	{
 		// Note: We onlt need the first three points on the face to calculate its normal.
 		noob::vec3 u = vertices[1] - vertices[0];
@@ -614,7 +614,7 @@ namespace noob
 
 	// TODO: Implement. PITA (?)
 	// vec4 rotation_from_mat4(const mat4& m);
-	vec3 translation_from_mat4(const mat4& m) noexcept(true)
+	static vec3 translation_from_mat4(const mat4& m) noexcept(true)
 	{
 		vec3 v;
 		v.v[0] = m.m[12];
@@ -624,7 +624,7 @@ namespace noob
 	}
 
 
-	vec3 scale_from_mat4(const mat4& m) noexcept(true)
+	static vec3 scale_from_mat4(const mat4& m) noexcept(true)
 	{
 		vec3 v;
 		v.v[0] = m.m[0];
@@ -640,7 +640,7 @@ namespace noob
 
 
 	// Returns a view matrix using the opengl lookAt style. COLUMN ORDER:
-	mat4 look_at(const vec3& cam_pos, vec3 targ_pos, const vec3& up) noexcept(true)
+	static mat4 look_at(const vec3& cam_pos, vec3 targ_pos, const vec3& up) noexcept(true)
 	{
 		// inverse translation
 		mat4 p = identity_mat4 ();
@@ -668,7 +668,7 @@ namespace noob
 	}
 
 	// returns a perspective function mimicking the opengl projection style.
-	mat4 perspective(float fovy, float aspect, float near, float far) noexcept(true)
+	static mat4 perspective(float fovy, float aspect, float near, float far) noexcept(true)
 	{
 		float fov_rad = fovy * ONE_DEG_IN_RAD;
 		float range = tan (fov_rad / 2.0f) * near;
@@ -691,7 +691,7 @@ namespace noob
 	   2 6 10 14
 	   3 7 11 15
 	   */
-	mat4 ortho(float left, float right, float bottom, float top, float near, float far) noexcept(true)
+	static mat4 ortho(float left, float right, float bottom, float top, float near, float far) noexcept(true)
 	{
 		mat4 m = zero_mat4();
 		m.m[0] = 2.0/(right-left);
@@ -707,7 +707,7 @@ namespace noob
 	// CONVERSION UTILITY FUNCTIONS:
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	vec3 vec3_from_vec4(const vec4& vv) noexcept(true)
+	static vec3 vec3_from_vec4(const vec4& vv) noexcept(true)
 	{
 		noob::vec3 v;
 		v.v[0] = vv.v[0];
@@ -716,7 +716,7 @@ namespace noob
 		return v;
 	}
 
-	vec3 vec3_from_array(const std::array<float, 3>& a) noexcept(true)
+	static vec3 vec3_from_array(const std::array<float, 3>& a) noexcept(true)
 	{
 		noob::vec3 v;
 		v.v[0] = a[0];
@@ -725,7 +725,7 @@ namespace noob
 		return v;
 	}
 
-	vec3 vec3_from_bullet(const btVector3& btVec) noexcept(true)
+	static vec3 vec3_from_bullet(const btVector3& btVec) noexcept(true)
 	{
 		noob::vec3 v;
 		v.v[0] = btVec[0];
@@ -734,7 +734,7 @@ namespace noob
 		return v;
 	}
 
-	vec3 vec3_from_polymesh(const PolyMesh::Point& p) noexcept(true)
+	static vec3 vec3_from_polymesh(const PolyMesh::Point& p) noexcept(true)
 	{
 		noob::vec3 v;
 		v.v[0] = p[0];
@@ -743,7 +743,7 @@ namespace noob
 		return v;
 	}
 
-	vec3 vec3_from_eigen_vec3(const Eigen::Vector3f& p) noexcept(true)
+	static vec3 vec3_from_eigen_vec3(const Eigen::Vector3f& p) noexcept(true)
 	{
 		noob::vec3 v;
 		v.v[0] = p[0];
@@ -753,7 +753,7 @@ namespace noob
 	}
 
 	// Whatever the hell you gotta do to compile, man...
-	vec3 vec3_from_eigen_block(const Eigen::Block<const Eigen::Matrix<float, 4, 1>, 3, 1, false> n) noexcept(true)
+	static vec3 vec3_from_eigen_block(const Eigen::Block<const Eigen::Matrix<float, 4, 1>, 3, 1, false> n) noexcept(true)
 	{
 		noob::vec3 v;
 		v.v[0] = n[0];
@@ -762,7 +762,7 @@ namespace noob
 		return v;
 	}
 
-	versor versor_from_mat4(const mat4& m) noexcept(true)
+	static versor versor_from_mat4(const mat4& m) noexcept(true)
 	{
 		glm::mat4 mm = glm::make_mat4(&m.m[0]);
 		glm::quat q = glm::quat_cast(mm);
@@ -774,7 +774,7 @@ namespace noob
 		return qq;
 	}
 
-	versor versor_from_bullet(const btQuaternion& arg) noexcept(true)
+	static versor versor_from_bullet(const btQuaternion& arg) noexcept(true)
 	{
 		noob::versor qq;
 		qq.q[0] = arg[0];
@@ -784,7 +784,7 @@ namespace noob
 		return qq;
 	}
 
-	mat4 mat4_from_bullet(const btTransform arg) noexcept(true)
+	static mat4 mat4_from_bullet(const btTransform arg) noexcept(true)
 	{
 		noob::mat4 t;
 
