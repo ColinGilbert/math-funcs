@@ -43,13 +43,13 @@ typedef OpenMesh::TriMesh_ArrayKernelT<> TriMesh;
 namespace noob
 {
 
-	//typedef vec2_type<float> vec2;
-	// typedef vec3_type<float> vec3;
-	// typedef vec4_type<float> vec4;
+	typedef vec2_type<float> vec2;
+	typedef vec3_type<float> vec3;
+	typedef vec4_type<float> vec4;
 
-	// typedef versor_type<float> versor;
-	// typedef mat3_type<float> mat3;
-	// typedef mat4_type<float> mat4;
+	typedef versor_type<float> versor;
+	typedef mat3_type<float> mat3;
+	typedef mat4_type<float> mat4;
 
 
 
