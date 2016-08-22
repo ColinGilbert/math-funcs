@@ -788,23 +788,8 @@ namespace noob
 	{
 		noob::mat4 t;
 
-		t.m[0] = arg[0];
-		t.m[1] = arg[1];
-		t.m[2] = arg[2];
-		t.m[3] = arg[3];
-		t.m[4] = arg[4];
-		t.m[5] = arg[5];
-		t.m[6] = arg[6];
-		t.m[7] = arg[7];
-		t.m[8] = arg[8];
-		t.m[9] = arg[9];
-		t.m[10] = arg[10];
-		t.m[11] = arg[11];
-		t.m[12] = arg[12];
-		t.m[13] = arg[13];
-		t.m[14] = arg[14];
-		t.m[15] = arg[15];
-		
+		arg.getOpenGLMatrix(&t.m[0])
+
 		return t;
 	}
 }
