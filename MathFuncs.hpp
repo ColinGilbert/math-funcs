@@ -704,57 +704,6 @@ namespace noob
 			    );
 	}
 
-	float dot(const versor& q, const versor& r) noexcept(true)
-	{
-		return q.q[0] * r.q[0] + q.q[1] * r.q[1] + q.q[2] * r.q[2] + q.q[3] * r.q[3];
-	}
-
-	versor slerp(const versor& q, const versor& r, float t) noexcept(true)
-	{
-		versor temp_q(q);
-		// angle between q0-q1
-		float cos_half_theta = dot(temp_q, r);
-		// as found here http://stackoverflow.com/questions/2886606/flipping-issue-when-interpolating-rotations-using-quaternions
-		// if dot product is negative then one quaternion should be negated, to make
-		// it take the short way around, rather than the long way
-		// yeah! and furthermore Susan, I had to recalculate the d.p. after this
-
-		if (cos_half_theta < 0.0f)
-		{
-			for (int i = 0; i < 4; i++)
-			{
-				temp_q.q[i] *= -1.0f;
-			}
-			cos_half_theta = dot (temp_q, r);
-		}
-		// if qa=qb or qa=-qb then theta = 0 and we can return qa
-		if (fabs(cos_half_theta) >= 1.0f)
-		{
-			return temp_q;
-		}
-		// Calculate temporary values
-		float sin_half_theta = sqrt(1.0f - cos_half_theta * cos_half_theta);
-		// if theta = 180 degrees then result is not fully defined
-		// we could rotate around any axis normal to qa or qb
-		versor result;
-		if (fabs(sin_half_theta) < 0.001f)
-		{
-			for (int i = 0; i < 4; i++)
-			{
-				result.q[i] = (1.0f - t) * temp_q.q[i] + t * r.q[i];
-			}
-			return result;
-		}
-		float half_theta = acos(cos_half_theta);
-		float a = sin((1.0f - t) * half_theta) / sin_half_theta;
-		float b = sin(t * half_theta) / sin_half_theta;
-		for (int i = 0; i < 4; i++)
-		{
-			result.q[i] = temp_q.q[i] * a + r.q[i] * b;
-		}
-		return result;
-	}
-
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// CONVERSION UTILITY FUNCTIONS:
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

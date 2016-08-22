@@ -50,7 +50,7 @@ namespace noob
 				return m[x];
 			}
 
-			vec4 mat4_type::operator*(const vec4& rhs) const noexcept(true)
+			vec4 operator*(const vec4& rhs) const noexcept(true)
 			{
 				// 0x + 4y + 8z + 12w
 				T x = m[0] * rhs.v[0] +
@@ -75,7 +75,7 @@ namespace noob
 				return vec4 (x, y, z, w);
 			}
 
-			mat4_type mat4_type::operator*(const mat4_type& rhs) const noexcept(true)
+			mat4_type operator*(const mat4_type& rhs) const noexcept(true)
 			{
 				mat4_type r = mat4_type::zero();
 				int r_index = 0;
@@ -95,7 +95,7 @@ namespace noob
 				return r;
 			}
 
-			mat4_type& mat4_type::operator=(const mat4_type& rhs) noexcept(true)
+			mat4_type& operator=(const mat4_type& rhs) noexcept(true)
 			{
 				for (int i = 0; i < 16; i++)
 				{

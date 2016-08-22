@@ -122,7 +122,13 @@ namespace noob
 			{
 				return v[x];
 			}
-
+			
+			std::string to_string() const noexcept(true)
+			{
+				fmt::MemoryWriter w;
+				w << "(" << v[0] << ", " << v[1] << ", " << v[2] << ")";
+				return w.str();
+			}
 
 			rde::fixed_array<T, 3> v;
 		};
