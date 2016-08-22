@@ -788,7 +788,7 @@ namespace noob
 	{
 		noob::mat4 t;
 
-		arg.getOpenGLMatrix(&t.m[0])
+		arg.getOpenGLMatrix(&t.m[0]);
 
 		return t;
 	}
