@@ -186,7 +186,7 @@ namespace noob
 		return vec3 (x, y, z);
 	}
 
-	static static float get_squared_dist(const vec3& from, const vec3& to) noexcept(true)
+	static float get_squared_dist(const vec3& from, const vec3& to) noexcept(true)
 	{
 		float x = (to.v[0] - from.v[0]) * (to.v[0] - from.v[0]);
 		float y = (to.v[1] - from.v[1]) * (to.v[1] - from.v[1]);
