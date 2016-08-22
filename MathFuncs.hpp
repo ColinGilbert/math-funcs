@@ -108,7 +108,7 @@ namespace noob
 	// ONE-FLOAT FUNCTIONS:
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	static template <typename T> int sign(T val) noexcept(true)
+	template <typename T> int sign(T val) noexcept(true)
 	{
 		return (T(0) < val) - (val < T(0));
 	}
