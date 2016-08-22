@@ -130,6 +130,6 @@ namespace noob
 				return w.str();
 			}
 
-			rde::fixed_array<T, 3> v;
+			std::array<T, 3> v;
 		};
 }

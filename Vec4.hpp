@@ -2,6 +2,7 @@
 
 #include <array>
 #include "format.h"
+#include "Vec3.hpp"
 
 namespace noob
 {
@@ -15,6 +16,14 @@ namespace noob
 				v[0] = x;
 				v[1] = y;
 				v[2] = z;
+				v[3] = w;
+			}
+
+			vec4_type(const vec3_type& arg, T w) noexcept(true)
+			{
+				v[0] = arg.v[0];
+				v[1] = arg.v[1];
+				v[2] = arg.v[2];
 				v[3] = w;
 			}
 
