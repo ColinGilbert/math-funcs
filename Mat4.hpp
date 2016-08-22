@@ -3,12 +3,10 @@
 #include <array>
 
 #include <glm/glm.hpp>
-#include "MathDefines.hpp"
+#include "Vec4.hpp"
 
 namespace noob
 {
-	struct vec4;
-	struct versor;
 	/* stored like this:
 	   0 4 8  12
 	   1 5 9  13

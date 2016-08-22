@@ -1,7 +1,6 @@
 #pragma once
 
 #include <array>
-#include "MathDefines.hpp"
 
 namespace noob
 {
@@ -11,7 +10,7 @@ namespace noob
 	   2 5 8  */
 	struct mat3
 	{
-		mat3() noexcept(true){}
+		mat3() noexcept(true) {}
 
 		/* note: entered in COLUMNS */
 		mat3(float a, float b, float c, float d, float e, float f, float g, float h, float i) noexcept(true)

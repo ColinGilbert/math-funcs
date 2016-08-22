@@ -11,8 +11,6 @@ namespace noob
 {
 	struct vec3
 	{
-
-
 		vec3() noexcept(true) {}
 
 		vec3(float x, float y, float z) noexcept(true)

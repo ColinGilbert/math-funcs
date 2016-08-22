@@ -2,20 +2,15 @@
 
 #include <array>
 
-#include "MathDefines.hpp"
+#include "Vec4.hpp"
 
 namespace noob
 {
-	struct vec4;
-	struct mat4;
 	struct versor
 	{
+		versor() noexcept(true) {}
 
-		// And now for the actual class
-
-		versor() {}
-
-		versor(float x, float y, float z, float w)
+		versor(float x, float y, float z, float w) noexcept(true)
 		{
 			q[0] = x;
 			q[1] = y;
@@ -23,7 +18,7 @@ namespace noob
 			q[3] = w;
 		}
 
-		versor(const noob::vec4& v)
+		versor(const noob::vec4& v) noexcept(true)
 		{
 			q[0] = v[0];
 			q[1] = v[1];
@@ -31,15 +26,7 @@ namespace noob
 			q[3] = v[3];
 		}
 
-		versor(const btQuaternion& quat)
-		{
-			q[0] = quat.x();
-			q[1] = quat.y();
-			q[2] = quat.z();
-			q[3] = quat.w();
-		}
-
-		versor operator/(float rhs) const
+		versor operator/(float rhs) const noexcept(true)
 		{
 			versor result;
 			result.q[0] = q[0] / rhs;
@@ -49,7 +36,7 @@ namespace noob
 			return result;
 		}
 
-		versor operator*(float rhs) const
+		versor operator*(float rhs) const noexcept(true)
 		{
 			versor result;
 			result.q[0] = q[0] * rhs;
@@ -59,14 +46,14 @@ namespace noob
 			return result;
 		}
 
-		std::string to_string() const
+		std::string to_string() const noexcept(true)
 		{
 			fmt::MemoryWriter w;
 			w << "(" << q[0] << ", " << q[1] << ", " << q[2] << ", " << q[3] << ")";
 			return w.str();
 		}
 
-		versor operator*(const versor& rhs) const
+		versor operator*(const versor& rhs) const noexcept(true)
 		{
 			versor result;
 			result.q[0] = rhs.q[0] * q[0] - rhs.q[1] * q[1] -
@@ -81,7 +68,7 @@ namespace noob
 			return normalize (result);
 		}
 
-		versor operator+(const versor& rhs) const
+		versor operator+(const versor& rhs) const noexcept(true)
 		{
 			versor result;
 			result.q[0] = rhs.q[0] + q[0];
@@ -92,7 +79,7 @@ namespace noob
 			return normalize (result);
 		}
 
-		versor& operator=(const versor& rhs)
+		versor& operator=(const versor& rhs) noexcept(true)
 		{
 			q[0] = rhs.q[0];
 			q[1] = rhs.q[1];
@@ -101,7 +88,7 @@ namespace noob
 			return *this;
 		}
 
-		float& operator[](int x) 
+		float& operator[](int x) noexcept(true)
 		{
 			return q[x];
 		}

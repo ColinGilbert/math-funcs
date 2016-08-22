@@ -10,9 +10,9 @@ namespace noob
 {
 	struct vec4
 	{
-		vec4() {}
+		vec4() noexcept(true) {}
 
-		vec4(float x, float y, float z, float w)
+		vec4(float x, float y, float z, float w) noexcept(true)
 		{
 			v[0] = x;
 			v[1] = y;
@@ -20,7 +20,7 @@ namespace noob
 			v[3] = w;
 		}
 
-		vec4(const vec2& vv, float z, float w) 
+		vec4(const vec2& vv, float z, float w) noexcept(true)
 		{
 			v[0] = vv.v[0];
 			v[1] = vv.v[1];
@@ -28,7 +28,7 @@ namespace noob
 			v[3] = w;
 		}
 
-		vec4(const vec3& vv, float w) 
+		vec4(const vec3& vv, float w) noexcept(true)
 		{
 			v[0] = vv.v[0];
 			v[1] = vv.v[1];
@@ -36,8 +36,7 @@ namespace noob
 			v[3] = w;
 		}
 
-
-		vec4 operator+(const vec4& rhs) const
+		vec4 operator+(const vec4& rhs) const noexcept(true)
 		{
 			vec4 vc;
 			vc.v[0] = v[0] + rhs.v[0];
@@ -47,7 +46,7 @@ namespace noob
 			return vc;
 		}
 
-		vec4& operator+=(const vec4& rhs)
+		vec4& operator+=(const vec4& rhs) noexcept(true)
 		{
 			v[0] += rhs.v[0];
 			v[1] += rhs.v[1];
@@ -56,7 +55,7 @@ namespace noob
 			return *this; // return self
 		}
 
-		vec4 operator-(const vec4& rhs) const
+		vec4 operator-(const vec4& rhs) const noexcept(true)
 		{
 			vec4 vc;
 			vc.v[0] = v[0] - rhs.v[0];
@@ -66,7 +65,7 @@ namespace noob
 			return vc;
 		}
 
-		vec4& operator-=(const vec4& rhs)
+		vec4& operator-=(const vec4& rhs) noexcept(true)
 		{
 			v[0] -= rhs.v[0];
 			v[1] -= rhs.v[1];
@@ -75,7 +74,7 @@ namespace noob
 			return *this;
 		}
 
-		vec4 operator+(float rhs) const
+		vec4 operator+(float rhs) const noexcept(true)
 		{
 			vec4 vc;
 			vc.v[0] = v[0] + rhs;
@@ -85,7 +84,7 @@ namespace noob
 			return vc;
 		}
 
-		vec4 operator-(float rhs) const
+		vec4 operator-(float rhs) const noexcept(true)
 		{
 			vec4 vc;
 			vc.v[0] = v[0] - rhs;
@@ -95,7 +94,7 @@ namespace noob
 			return vc;
 		}
 
-		vec4 operator*(float rhs) const
+		vec4 operator*(float rhs) const noexcept(true)
 		{
 			vec4 vc;
 			vc.v[0] = v[0] * rhs;
@@ -105,7 +104,7 @@ namespace noob
 			return vc;
 		}
 
-		vec4 operator/(float rhs) const
+		vec4 operator/(float rhs) const noexcept(true)
 		{
 			vec4 vc;
 			vc.v[0] = v[0] / rhs;
@@ -115,7 +114,7 @@ namespace noob
 			return vc;
 		}
 
-		vec4& operator*=(float rhs) 
+		vec4& operator*=(float rhs) noexcept(true)
 		{
 			v[0] = v[0] * rhs;
 			v[1] = v[1] * rhs;
@@ -124,7 +123,7 @@ namespace noob
 			return *this;
 		}
 
-		vec4& operator=(const vec4& rhs)
+		vec4& operator=(const vec4& rhs) noexcept(true)
 		{
 			v[0] = rhs.v[0];
 			v[1] = rhs.v[1];
@@ -133,17 +132,17 @@ namespace noob
 			return *this;
 		}
 
-		float& operator[](uint32_t x)
+		float& operator[](uint32_t x) noexcept(true)
 		{
 			return v[x];
 		}
 
-		const float& operator[](uint32_t x) const
+		const float& operator[](uint32_t x) const noexcept(true)
 		{
 			return v[x];
 		}
 
-		std::string to_string() const
+		std::string to_string() const noexcept(true)
 		{
 			fmt::MemoryWriter w;
 			w << "(" << v[0] << ", " << v[1] << ", " << v[2] << ", " << v[3] << ")";

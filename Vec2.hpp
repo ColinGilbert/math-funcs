@@ -6,9 +6,9 @@
 
 namespace noob
 {
-	struct vec2 final
+	struct vec2
 	{
-		vec2() {}
+		vec2() noexcept(true) {}
 
 		vec2(float x, float y) noexcept(true)
 		{
@@ -21,7 +21,7 @@ namespace noob
 			return v[x];
 		}
 
-		std::string to_string() const
+		std::string to_string() const noexcept(true)
 		{
 			fmt::MemoryWriter w;
 			w << "(" << v[0] << ", " << v[1] << ")";
