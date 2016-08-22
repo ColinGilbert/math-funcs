@@ -799,6 +799,13 @@ namespace noob
 		return qq;
 	}
 
-
-
+	versor versor_from_bullet(const btQuaternion& arg) noexcept(true)
+	{
+		noob::versor qq;
+		qq.q[0] = arg[0];
+		qq.q[1] = arg[1];
+		qq.q[2] = argq[2];
+		qq.q[3] = arg[3];
+		return qq;
+	}
 }
