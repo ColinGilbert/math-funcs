@@ -43,8 +43,18 @@ typedef OpenMesh::TriMesh_ArrayKernelT<> TriMesh;
 namespace noob
 {
 
+	typedef vec2_type<float> vec2;
+	typedef vec3_type<float> vec3;
+	typedef vec4_type<float> vec4;
+
+	typedef versor_type<float> versor;
+	typedef mat3_type<float> mat3;
+	typedef mat4_type<float> mat4;
+
+
+
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// ONE-FLOAT FUNCTIONS:
+	// PACKING FUNCTIONS:
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	uint64_t pack_32_to_64(uint32_t x, uint32_t y) noexcept(true)
@@ -58,6 +68,22 @@ namespace noob
 		uint32_t y = _cast<uint32_t>(x);
 		return std::make_tuple(x,y);
 	}
+
+	uint64_t pack_32_to_64(uint32_t x, uint32_t y) noexcept(true)
+	{
+		return _cast<uint64_t>(x) << 32 | y;
+	}
+
+	std::tuple<uint32_t, uint32_t> pack_64_to_32(uint64_t arg) noexcept(true)
+	{
+		uint32_t x = _cast<uint32_t>(arg >> 32);
+		uint32_t y = _cast<uint32_t>(x);
+		return std::make_tuple(x,y);
+	}
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// ONE-FLOAT FUNCTIONS:
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	template <typename T> int sign(T val) noexcept(true)
 	{

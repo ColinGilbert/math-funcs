@@ -6,28 +6,22 @@
 
 namespace noob
 {
-	struct vec2
-	{
-		vec2() noexcept(true) {}
-
-		vec2(float x, float y) noexcept(true)
+	template <typename T>
+		struct vec2_type
 		{
-			v[0] = x;
-			v[1] = y;
-		}
+			vec2_type() noexcept(true) {}
 
-		float& operator[](uint32_t x) noexcept(true)
-		{
-			return v[x];
-		}
+			vec2_type(T x, T y) noexcept(true)
+			{
+				v[0] = x;
+				v[1] = y;
+			}
 
-		std::string to_string() const noexcept(true)
-		{
-			fmt::MemoryWriter w;
-			w << "(" << v[0] << ", " << v[1] << ")";
-			return w.str();
-		}
+			T& operator[](uint32_t x) noexcept(true)
+			{
+				return v[x];
+			}
 
-		std::array<float,2> v;
-	};
+			std::array<T,2> v;
+		};
 }
