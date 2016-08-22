@@ -19,7 +19,7 @@ namespace noob
 				v[3] = w;
 			}
 
-			vec4_type(const vec3_type& arg, T w) noexcept(true)
+			vec4_type(const vec3_type<T>& arg, T w) noexcept(true)
 			{
 				v[0] = arg.v[0];
 				v[1] = arg.v[1];

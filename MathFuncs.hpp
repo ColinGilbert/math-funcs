@@ -560,7 +560,7 @@ namespace noob
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// QUATERNION FUNCTIONS:
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+/*
 	versor quat_from_axis_rad(float radians, float x, float y, float z) noexcept(true)
 	{
 		versor result;
@@ -575,32 +575,7 @@ namespace noob
 	{
 		return quat_from_axis_rad (ONE_DEG_IN_RAD * degrees, x, y, z);
 	}
-
-	mat4 versor_to_mat4 (const versor& q) noexcept(true)
-	{
-		const float w = q.q[0];
-		const float x = q.q[1];
-		const float y = q.q[2];
-		const float z = q.q[3];
-		return mat4 (
-				1.0f - 2.0f * y * y - 2.0f * z * z,
-				2.0f * x * y + 2.0f * w * z,
-				2.0f * x * z - 2.0f * w * y,
-				0.0f,
-				2.0f * x * y - 2.0f * w * z,
-				1.0f - 2.0f * x * x - 2.0f * z * z,
-				2.0f * y * z + 2.0f * w * x,
-				0.0f,
-				2.0f * x * z + 2.0f * w * y,
-				2.0f * y * z - 2.0f * w * x,
-				1.0f - 2.0f * x * x - 2.0f * y * y,
-				0.0f,
-				0.0f,
-				0.0f,
-				0.0f,
-				1.0f
-			    );
-	}
+*/
 
 	versor normalize(const versor& q) noexcept(true)
 	{
