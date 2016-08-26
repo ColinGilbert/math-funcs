@@ -706,7 +706,7 @@ namespace noob
 	// GEOMETRY UTILITY FUNCTIONS:
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	static bbox update_bbox(const noob::bbox& b, noob::vec3& v)
+	static bbox update_bbox(const noob::bbox& b, const noob::vec3& v)
 	{
 		bbox bb;
 		
@@ -721,7 +721,7 @@ namespace noob
 		return bb;
 	}
 
-	static bbox update_bbox(const noob::bbox& a, noob::bbox& b)
+	static bbox update_bbox(const noob::bbox& a, const noob::bbox& b)
 	{
 		noob::bbox results;
 		
