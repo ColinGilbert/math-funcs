@@ -77,6 +77,11 @@ namespace noob
 			return noob::vec3(std::fabs(min.v[0]) + std::fabs(max.v[0]), std::fabs(min.v[1]) + std::fabs(max.v[1]), std::fabs(max.v[2]) + std::fabs(max.v[2]));
 		}
 
+		void reset() noexcept(true)
+		{
+			min = max = noob::vec3(0.0, 0.0, 0.0);
+		}
+
 		noob::vec3 min, max;
 	};
 
