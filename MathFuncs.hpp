@@ -760,15 +760,6 @@ namespace noob
 		return v;
 	}
 
-	static vec3 vec3_from_polymesh(const PolyMesh::Point& p) noexcept(true)
-	{
-		noob::vec3 v;
-		v.v[0] = p[0];
-		v.v[1] = p[1];
-		v.v[2] = p[2];
-		return v;
-	}
-
 	static vec3 vec3_from_eigen_vec3(const Eigen::Vector3f& p) noexcept(true)
 	{
 		noob::vec3 v;
