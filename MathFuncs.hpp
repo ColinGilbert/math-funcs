@@ -5,13 +5,6 @@
 #include <cmath>
 #include <array>
 
-#include <OpenMesh/Core/IO/MeshIO.hh>
-#include <OpenMesh/Core/Mesh/PolyMesh_ArrayKernelT.hh>
-#include <OpenMesh/Core/Mesh/TriMesh_ArrayKernelT.hh>
-
-typedef OpenMesh::PolyMesh_ArrayKernelT<> PolyMesh;
-typedef OpenMesh::TriMesh_ArrayKernelT<> TriMesh;
-
 #include <btBulletDynamicsCommon.h>
 #include <glm/glm.hpp>
 #include <Eigen/Geometry>
