@@ -123,14 +123,6 @@ namespace noob
 				return v[x];
 			}
 		
-			void normalize() noexcept(true)
-			{
-				const float divisor = std::max(std::max(v[0], v[1]), v[2]);
-				v[0] = v[0] / divisor;
-				v[1] = v[1] / divisor;
-				v[2] = v[2] / divisor;
-			}
-
 			std::string to_string() const noexcept(true)
 			{
 				fmt::MemoryWriter w;
