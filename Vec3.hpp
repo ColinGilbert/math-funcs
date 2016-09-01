@@ -4,8 +4,6 @@
 #include <array>
 #include <assert.h>
 
-#include "StringFuncs.hpp"
-
 namespace noob
 {
 	template <typename T>
@@ -122,12 +120,12 @@ namespace noob
 			{
 				return v[x];
 			}
-		
+	/*	
 			std::string to_string() const noexcept(true)
 			{
 				return noob::concat("(", noob::to_string(v[0]), ", ", noob::to_string(v[1]), ", ", noob::to_string(v[2]), ")");
 			}
-
+*/
 			std::array<T, 3> v;
 		};
 }

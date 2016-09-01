@@ -122,12 +122,12 @@ namespace noob
 			{
 				return v[x];
 			}
-			
+		/*	
 			std::string to_string() const noexcept(true)
 			{
 				return noob::concat("(", noob::to_string(v[0]), ", ", noob::to_string(v[1]), ", ", noob::to_string(v[2]), ", ", noob::to_string(v[3], ")");
 			}
-
+*/
 			std::array<T,4> v;
 		};
 

@@ -78,12 +78,12 @@ namespace noob
 			{
 				return q[x];
 			}
-
+/*
 			std::string to_string() const noexcept(true)
 			{
 				return noob::concat("(", noob::to_string(q[0]), ", ", noob::to_string(q[1]), ", ", noob::to_string(q[2]), ", ", noob::to_string(q[3]), ")");
 			}
-
+*/
 			std::array<T,4> q;
 		};
 }
