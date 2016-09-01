@@ -79,7 +79,7 @@ namespace noob
 			{
 				mat4_type r;
 				std::fill_n(&r.m[0], 16, 0.0);
-				
+
 				uint32_t r_index = 0;
 				for (uint32_t col = 0; col < 4; col++)
 				{
@@ -106,15 +106,15 @@ namespace noob
 				return *this;
 			}
 
-/*
-			std::string to_string() const noexcept(true)
-			{
-				fmt::MemoryWriter w;
-				w << m[0] << ", " << m[4] << ", " << m[8] << ", " << m[12] << "\n" << m[1] << ", " << m[5] << ", " << m[9] << ", " << m[13] << "\n" << m[2] << ", " << m[6] << ", " << m[10] << ", " << m[14] << "\n" << m[3] << ", " << m[7] << ", " << m[11] << ", " << m[15] << "\n";
-				return w.str();
-			}
+			/*
+			   std::string to_string() const noexcept(true)
+			   {
+			   fmt::MemoryWriter w;
+			   w << m[0] << ", " << m[4] << ", " << m[8] << ", " << m[12] << "\n" << m[1] << ", " << m[5] << ", " << m[9] << ", " << m[13] << "\n" << m[2] << ", " << m[6] << ", " << m[10] << ", " << m[14] << "\n" << m[3] << ", " << m[7] << ", " << m[11] << ", " << m[15] << "\n";
+			   return w.str();
+			   }
 
-			std::array<T, 16> m;
-		};
-*/
+			   std::array<T, 16> m;
+			   };
+			   */
 }

@@ -30,7 +30,6 @@
 #include "Versor.hpp"
 #include "Mat3.hpp"
 #include "Mat4.hpp"
-#include "MathTypes.hpp"
 
 
 namespace noob
@@ -706,7 +705,7 @@ namespace noob
 	static bbox update_bbox(const noob::bbox& b, const noob::vec3& v)
 	{
 		bbox bb;
-		
+
 		bb.min[0] = std::min(b.min[0], v[0]);
 		bb.min[1] = std::min(b.min[1], v[1]);
 		bb.min[2] = std::min(b.min[2], v[2]);
@@ -721,7 +720,7 @@ namespace noob
 	static bbox update_bbox(const noob::bbox& a, const noob::bbox& b)
 	{
 		noob::bbox results;
-		
+
 		results = update_bbox(a, b.min);
 		results = update_bbox(results, b.max);
 
