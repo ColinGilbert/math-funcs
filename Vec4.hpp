@@ -1,7 +1,7 @@
 #pragma once
 
 #include <array>
-#include "format.h"
+#include "fmt/format.h"
 #include "Vec3.hpp"
 
 namespace noob

@@ -4,7 +4,7 @@
 #include <array>
 #include <assert.h>
 
-#include "format.h"
+#include "fmt/format.h"
 
 namespace noob
 {
