@@ -22,7 +22,6 @@
 #define NOOB_EPSILON 0.0001
 
 
-#include "fmt/format.h"
 
 #include "Vec2.hpp"
 #include "Vec3.hpp"
@@ -31,7 +30,7 @@
 #include "Versor.hpp"
 #include "Mat3.hpp"
 #include "Mat4.hpp"
-#include "MathUtilTypes.hpp"
+#include "MathTypes.hpp"
 
 
 namespace noob

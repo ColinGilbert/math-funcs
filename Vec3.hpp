@@ -4,8 +4,6 @@
 #include <array>
 #include <assert.h>
 
-#include "fmt/format.h"
-
 namespace noob
 {
 	template <typename T>
@@ -122,14 +120,14 @@ namespace noob
 			{
 				return v[x];
 			}
-		
+	/*	
 			std::string to_string() const noexcept(true)
 			{
 				fmt::MemoryWriter w;
 				w << "(" << v[0] << ", " << v[1] << ", " << v[2] << ")";
 				return w.str();
 			}
-
+*/
 			std::array<T, 3> v;
 		};
 }

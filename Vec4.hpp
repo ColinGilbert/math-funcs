@@ -1,7 +1,6 @@
 #pragma once
 
 #include <array>
-#include "fmt/format.h"
 #include "Vec3.hpp"
 
 namespace noob
@@ -123,14 +122,14 @@ namespace noob
 			{
 				return v[x];
 			}
-
+/*
 			std::string to_string() const noexcept(true)
 			{
 				fmt::MemoryWriter w;
 				w << "(" << v[0] << ", " << v[1] << ", " << v[2] << ", " << v[3] << ")";
 				return w.str();
 			}
-
+*/
 			std::array<T,4> v;
 		};
 

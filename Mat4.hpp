@@ -106,7 +106,7 @@ namespace noob
 				return *this;
 			}
 
-
+/*
 			std::string to_string() const noexcept(true)
 			{
 				fmt::MemoryWriter w;
@@ -116,4 +116,5 @@ namespace noob
 
 			std::array<T, 16> m;
 		};
+*/
 }

@@ -2,8 +2,6 @@
 
 #include <array>
 
-#include "fmt/format.h"
-
 namespace noob
 {
 	template <typename T>
