@@ -92,7 +92,7 @@ namespace noob
 
 	static std::tuple<uint32_t, uint32_t> pack_64_to_32(uint64_t arg) noexcept(true)
 	{
-		uint32_t x = static_cast<uint32_t>(arg >> 32);
+		uint32_t x = static_cast<uint32_t>(arg >> 31);
 		uint32_t y = static_cast<uint32_t>(x);
 		return std::make_tuple(x,y);
 	}
