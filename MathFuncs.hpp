@@ -30,7 +30,7 @@
 #include "Versor.hpp"
 #include "Mat3.hpp"
 #include "Mat4.hpp"
-
+#include "Plane.hpp"
 
 namespace noob
 {
