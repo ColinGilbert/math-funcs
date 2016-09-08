@@ -1,4 +1,3 @@
-// This class is used for C++ convenience, and for providing an API for AngelScript
 // TODO: Convert to Eigen and test
 #pragma once
 
@@ -20,8 +19,6 @@
 #define TWO_PI (2.0 * NOOB_PI)
 
 #define NOOB_EPSILON 0.0001
-
-
 
 #include "Vec2.hpp"
 #include "Vec3.hpp"
@@ -80,11 +77,6 @@ namespace noob
 	{
 		vec3 lower_corner, upper_corner;
 	};
-
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// INT-PACKING FUNCTIONS:
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -177,12 +169,10 @@ namespace noob
 		return x + y + z;
 	}
 
-	/* converts an un-normalized direction into a heading in degrees
-	   NB i suspect that the z is backwards here but i've used in in
-	   several places like this. d'oh! */
+	// Converts an un-normalized direction into a heading in degrees.
 	static float direction_to_heading(const vec3& d) noexcept(true)
 	{
-		return atan2 (-d.v[0], -d.v[2]) * ONE_RAD_IN_DEG;
+		return atan2 (-d.v[0], d.v[2]) * ONE_RAD_IN_DEG;
 	}
 
 	static vec3 heading_to_direction(float degrees) noexcept(true)
