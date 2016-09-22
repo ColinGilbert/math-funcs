@@ -20,6 +20,6 @@ namespace noob
 				return v[x];
 			}
 
-			std::array<T,2> v;
+			std::array<T, 2> v;
 		};
 }

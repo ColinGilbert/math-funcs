@@ -31,15 +31,7 @@ namespace noob
 			{
 				return m[x];
 			}
-/*
-			std::string to_string() const noexcept(true)
-			{	
-				fmt::MemoryWriter w;
-				w << m[0] << ", " << m[3] << ", " << m[6] << "\n" << m[1] << ", " << m[4] << ", " << m[7] << "\n" << m[2] << ", " << m[5] << ", " << m[8] << "\n";
-				return w.str();
-			}
-*/
 
-			std::array<T,9> m;
+			std::array<T, 9> m;
 		};
 }

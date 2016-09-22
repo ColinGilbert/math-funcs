@@ -1,15 +1,11 @@
 // TODO: Convert to Eigen and test
 #pragma once
 
-#include <cmath>
 #include <array>
+#include <cmath>
 
 #include <btBulletDynamicsCommon.h>
-#include <glm/glm.hpp>
 #include <Eigen/Geometry>
-
-#include <glm/gtc/type_ptr.hpp>
-#include <glm/gtc/quaternion.hpp>
 
 #define NOOB_PI 3.1415926535
 #define TAU 2.0 * NOOB_PI
