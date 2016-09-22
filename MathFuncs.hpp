@@ -8,12 +8,10 @@
 #include <Eigen/Geometry>
 
 #define NOOB_PI 3.1415926535
-#define TAU 2.0 * NOOB_PI
-#define ONE_DEG_IN_RAD (2.0 * NOOB_PI) / 360.0 // 0.017444444
-#define ONE_RAD_IN_DEG 360.0 / (2.0 * NOOB_PI) //57.2957795
-
-#define TWO_PI (2.0 * NOOB_PI)
-
+#define NOOB_TAU 2.0 * NOOB_PI
+#define NOOB_ONE_DEG_IN_RAD (2.0 * NOOB_PI) / 360.0 // 0.017444444
+#define NOOB_ONE_RAD_IN_DEG 360.0 / (2.0 * NOOB_PI) //57.2957795
+#define NOOB_TWO_PI (2.0 * NOOB_PI)
 #define NOOB_EPSILON 0.0001
 
 #include "Vec2.hpp"
@@ -30,7 +28,6 @@ namespace noob
 	typedef vec2_type<float> vec2;
 	typedef vec3_type<float> vec3;
 	typedef vec4_type<float> vec4;
-
 	typedef versor_type<float> versor;
 	typedef mat3_type<float> mat3;
 	typedef mat4_type<float> mat4;
@@ -168,12 +165,12 @@ namespace noob
 	// Converts an un-normalized direction into a heading in degrees.
 	static float direction_to_heading(const vec3& d) noexcept(true)
 	{
-		return atan2 (-d.v[0], d.v[2]) * ONE_RAD_IN_DEG;
+		return atan2 (-d.v[0], d.v[2]) * NOOB_ONE_RAD_IN_DEG;
 	}
 
 	static vec3 heading_to_direction(float degrees) noexcept(true)
 	{
-		float rad = degrees * ONE_DEG_IN_RAD;
+		float rad = degrees * NOOB_ONE_DEG_IN_RAD;
 		return vec3 (-sinf (rad), 0.0f, -cosf (rad));
 	}
 
@@ -201,7 +198,7 @@ namespace noob
 
 	static versor quat_from_axis_deg (float degrees, float x, float y, float z) noexcept(true)
 	{
-		return quat_from_axis_rad (ONE_DEG_IN_RAD * degrees, x, y, z);
+		return quat_from_axis_rad (NOOB_ONE_DEG_IN_RAD * degrees, x, y, z);
 	}
 
 
@@ -303,7 +300,7 @@ namespace noob
 
 	static versor versor_from_axis_deg(float degrees, float x, float y, float z) noexcept(true)
 	{
-		return versor_from_axis_rad (ONE_DEG_IN_RAD * degrees, x, y, z);
+		return versor_from_axis_rad (NOOB_ONE_DEG_IN_RAD * degrees, x, y, z);
 	}
 
 	static mat4 versor_to_mat4(const noob::versor& q) noexcept(true)
@@ -530,7 +527,7 @@ namespace noob
 	static mat4 rotate_x_deg(const mat4& m, float deg) noexcept(true)
 	{
 		// convert to radians
-		float rad = deg * ONE_DEG_IN_RAD;
+		float rad = deg * NOOB_ONE_DEG_IN_RAD;
 		mat4 m_r = identity_mat4 ();
 		m_r.m[5] = cos (rad);
 		m_r.m[9] = -sin (rad);
@@ -542,7 +539,7 @@ namespace noob
 	static mat4 rotate_y_deg(const mat4& m, float deg) noexcept(true)
 	{
 		// convert to radians
-		const float rad = deg * ONE_DEG_IN_RAD;
+		const float rad = deg * NOOB_ONE_DEG_IN_RAD;
 		mat4 m_r = identity_mat4 ();
 		m_r.m[0] = cos (rad);
 		m_r.m[8] = sin (rad);
@@ -554,7 +551,7 @@ namespace noob
 	static mat4 rotate_z_deg(const mat4& m, float deg) noexcept(true)
 	{
 		// convert to radians
-		const float rad = deg * ONE_DEG_IN_RAD;
+		const float rad = deg * NOOB_ONE_DEG_IN_RAD;
 		mat4 m_r = identity_mat4 ();
 		m_r.m[0] = cos (rad);
 		m_r.m[4] = -sin (rad);
@@ -639,7 +636,7 @@ namespace noob
 	// returns a perspective function mimicking the opengl projection style.
 	static mat4 perspective(float fovy, float aspect, float near, float far) noexcept(true)
 	{
-		float fov_rad = fovy * ONE_DEG_IN_RAD;
+		float fov_rad = fovy * NOOB_ONE_DEG_IN_RAD;
 		float range = tan (fov_rad / 2.0f) * near;
 		float sx = (2.0f * near) / (range * aspect + range * aspect);
 		float sy = near / range;
