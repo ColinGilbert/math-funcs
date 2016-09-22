@@ -270,8 +270,9 @@ namespace noob
 		return result;
 	}
 
-	static versor quat_from_mat4(const mat4& m) noexcept(true)
+	static versor versor_from_mat4(const mat4& m) noexcept(true)
 	{
+	/*
 		glm::mat4 mm = glm::make_mat4(&m.m[0]);
 		glm::quat q = glm::quat_cast(mm);
 		noob::versor qq;
@@ -280,6 +281,9 @@ namespace noob
 		qq.q[2] = q[2];
 		qq.q[3] = q[3];
 		return qq;
+	*/
+		return versor_from_eigen(Eigen::Quaternion(Eigen::Map<Eigen::Matrix4f>(&m.m[0])));
+
 	}
 
 	static vec3 lerp(const noob::vec3& a, const noob::vec3& b, float t) noexcept(true)
@@ -731,7 +735,7 @@ namespace noob
 		return v;
 	}
 
-	static vec3 vec3_from_eigen_vec3(const Eigen::Vector3f& p) noexcept(true)
+	static vec3 vec3_from_eigen(const Eigen::Vector3f& p) noexcept(true)
 	{
 		noob::vec3 v;
 		v.v[0] = p[0];
@@ -750,18 +754,6 @@ namespace noob
 		return v;
 	}
 
-	static versor versor_from_mat4(const mat4& m) noexcept(true)
-	{
-		glm::mat4 mm = glm::make_mat4(&m.m[0]);
-		glm::quat q = glm::quat_cast(mm);
-		noob::versor qq;
-		qq.q[0] = q[0];
-		qq.q[1] = q[1];
-		qq.q[2] = q[2];
-		qq.q[3] = q[3];
-		return qq;
-	}
-
 	static versor versor_from_bullet(const btQuaternion& arg) noexcept(true)
 	{
 		noob::versor qq;
@@ -772,12 +764,20 @@ namespace noob
 		return qq;
 	}
 
+	static versor versor_from_eigen(const Eigen::Quaternion& arg) noexcept(true)
+	{
+		noob::versor qq;
+		qq.q[0] = arg.x();
+		qq.q[1] = arg.y();
+		qq.q[2] = arg.z();
+		qq.q[3] = arg.w();
+		return qq;
+	}
+
 	static mat4 mat4_from_bullet(const btTransform arg) noexcept(true)
 	{
 		noob::mat4 t;
-
 		arg.getOpenGLMatrix(&t.m[0]);
-
 		return t;
 	}
 }
