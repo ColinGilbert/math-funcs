@@ -249,8 +249,7 @@ namespace noob
 		}
 		// Calculate temporary values
 		float sin_half_theta = sqrt(1.0f - cos_half_theta * cos_half_theta);
-		// if theta = 180 degrees then result is not fully defined
-		// we could rotate around any axis normal to qa or qb
+		// If theta = 180 degrees then result is not fully defined we could rotate around any axis normal to qa or qb
 		versor result;
 		if (fabs(sin_half_theta) < 0.001f)
 		{
@@ -272,18 +271,7 @@ namespace noob
 
 	static versor versor_from_mat4(const mat4& m) noexcept(true)
 	{
-	/*
-		glm::mat4 mm = glm::make_mat4(&m.m[0]);
-		glm::quat q = glm::quat_cast(mm);
-		noob::versor qq;
-		qq.q[0] = q[0];
-		qq.q[1] = q[1];
-		qq.q[2] = q[2];
-		qq.q[3] = q[3];
-		return qq;
-	*/
-		return versor_from_eigen(Eigen::Quaternion(Eigen::Map<Eigen::Matrix4f>(&m.m[0])));
-
+		return versor_from_eigen(Eigen::Quaternion<float>(Eigen::Map<Eigen::Matrix4f>(&m.m[0])));
 	}
 
 	static vec3 lerp(const noob::vec3& a, const noob::vec3& b, float t) noexcept(true)
