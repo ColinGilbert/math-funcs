@@ -99,6 +99,83 @@ namespace noob
 		else return true;
 	}
 
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// CONVERSION UTILITY FUNCTIONS:
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	static vec3 vec3_from_vec4(const vec4& vv) noexcept(true)
+	{
+		noob::vec3 v;
+		v.v[0] = vv.v[0];
+		v.v[1] = vv.v[1];
+		v.v[2] = vv.v[2];
+		return v;
+	}
+
+	static vec3 vec3_from_array(const std::array<float, 3>& a) noexcept(true)
+	{
+		noob::vec3 v;
+		v.v[0] = a[0];
+		v.v[1] = a[1];
+		v.v[2] = a[2];
+		return v;
+	}
+
+	static vec3 vec3_from_bullet(const btVector3& btVec) noexcept(true)
+	{
+		noob::vec3 v;
+		v.v[0] = btVec[0];
+		v.v[1] = btVec[1];
+		v.v[2] = btVec[2];
+		return v;
+	}
+
+	static vec3 vec3_from_eigen(const Eigen::Vector3f& p) noexcept(true)
+	{
+		noob::vec3 v;
+		v.v[0] = p[0];
+		v.v[1] = p[1];
+		v.v[2] = p[2];
+		return v;
+	}
+
+	// Whatever the hell you gotta do to compile, man...
+	static vec3 vec3_from_eigen_block(const Eigen::Block<const Eigen::Matrix<float, 4, 1>, 3, 1, false> n) noexcept(true)
+	{
+		noob::vec3 v;
+		v.v[0] = n[0];
+		v.v[1] = n[1];
+		v.v[2] = n[2];
+		return v;
+	}
+
+	static versor versor_from_bullet(const btQuaternion& arg) noexcept(true)
+	{
+		noob::versor qq;
+		qq.q[0] = arg[0];
+		qq.q[1] = arg[1];
+		qq.q[2] = arg[2];
+		qq.q[3] = arg[3];
+		return qq;
+	}
+
+	static versor versor_from_eigen(const Eigen::Quaternion<float>& arg) noexcept(true)
+	{
+		noob::versor qq;
+		qq.q[0] = arg.x();
+		qq.q[1] = arg.y();
+		qq.q[2] = arg.z();
+		qq.q[3] = arg.w();
+		return qq;
+	}
+
+	static mat4 mat4_from_bullet(const btTransform arg) noexcept(true)
+	{
+		noob::mat4 t;
+		arg.getOpenGLMatrix(&t.m[0]);
+		return t;
+	}
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// VECTOR FUNCTIONS:
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -394,7 +471,7 @@ namespace noob
 		float det = determinant (mm);
 		/* there is no inverse if determinant is zero (not likely unless scale is
 		   broken) */
-		if (0.0f == det)
+		if (compare_floats(0.0, det))
 		{
 			// logger::log("WARNING. matrix has no determinant. can not invert");
 			return mm;
@@ -690,82 +767,5 @@ namespace noob
 		results = update_bbox(results, b.max);
 
 		return results;
-	}
-
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	// CONVERSION UTILITY FUNCTIONS:
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-	static vec3 vec3_from_vec4(const vec4& vv) noexcept(true)
-	{
-		noob::vec3 v;
-		v.v[0] = vv.v[0];
-		v.v[1] = vv.v[1];
-		v.v[2] = vv.v[2];
-		return v;
-	}
-
-	static vec3 vec3_from_array(const std::array<float, 3>& a) noexcept(true)
-	{
-		noob::vec3 v;
-		v.v[0] = a[0];
-		v.v[1] = a[1];
-		v.v[2] = a[2];
-		return v;
-	}
-
-	static vec3 vec3_from_bullet(const btVector3& btVec) noexcept(true)
-	{
-		noob::vec3 v;
-		v.v[0] = btVec[0];
-		v.v[1] = btVec[1];
-		v.v[2] = btVec[2];
-		return v;
-	}
-
-	static vec3 vec3_from_eigen(const Eigen::Vector3f& p) noexcept(true)
-	{
-		noob::vec3 v;
-		v.v[0] = p[0];
-		v.v[1] = p[1];
-		v.v[2] = p[2];
-		return v;
-	}
-
-	// Whatever the hell you gotta do to compile, man...
-	static vec3 vec3_from_eigen_block(const Eigen::Block<const Eigen::Matrix<float, 4, 1>, 3, 1, false> n) noexcept(true)
-	{
-		noob::vec3 v;
-		v.v[0] = n[0];
-		v.v[1] = n[1];
-		v.v[2] = n[2];
-		return v;
-	}
-
-	static versor versor_from_bullet(const btQuaternion& arg) noexcept(true)
-	{
-		noob::versor qq;
-		qq.q[0] = arg[0];
-		qq.q[1] = arg[1];
-		qq.q[2] = arg[2];
-		qq.q[3] = arg[3];
-		return qq;
-	}
-
-	static versor versor_from_eigen(const Eigen::Quaternion<float>& arg) noexcept(true)
-	{
-		noob::versor qq;
-		qq.q[0] = arg.x();
-		qq.q[1] = arg.y();
-		qq.q[2] = arg.z();
-		qq.q[3] = arg.w();
-		return qq;
-	}
-
-	static mat4 mat4_from_bullet(const btTransform arg) noexcept(true)
-	{
-		noob::mat4 t;
-		arg.getOpenGLMatrix(&t.m[0]);
-		return t;
 	}
 }
