@@ -348,7 +348,7 @@ namespace noob
 
 	static versor versor_from_mat4(const mat4& m) noexcept(true)
 	{
-		return versor_from_eigen(Eigen::Quaternion<float>(Eigen::Map<const Eigen::Matrix4f>(&m.m[0])));
+		return versor_from_eigen(Eigen::Quaternion<float>(Eigen::Matrix4f(Eigen::Map<const Eigen::Matrix4f>(&m.m[0]))));
 	}
 
 	static vec3 lerp(const noob::vec3& a, const noob::vec3& b, float t) noexcept(true)
