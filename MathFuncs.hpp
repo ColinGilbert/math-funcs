@@ -764,7 +764,7 @@ namespace noob
 		return qq;
 	}
 
-	static versor versor_from_eigen(const Eigen::Quaternion& arg) noexcept(true)
+	static versor versor_from_eigen(const Eigen::Quaternion<float>& arg) noexcept(true)
 	{
 		noob::versor qq;
 		qq.q[0] = arg.x();
