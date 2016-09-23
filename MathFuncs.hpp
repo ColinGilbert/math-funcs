@@ -4,7 +4,7 @@
 #include <array>
 #include <cmath>
 
-
+#define GLM_FORCE_CXX98
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/quaternion.hpp>
 #include <btBulletDynamicsCommon.h>
