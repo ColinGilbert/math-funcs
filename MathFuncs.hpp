@@ -4,6 +4,9 @@
 #include <array>
 #include <cmath>
 
+
+#include <glm/gtc/type_ptr.hpp>
+#include <glm/gtc/quaternion.hpp>
 #include <btBulletDynamicsCommon.h>
 #include <Eigen/Geometry>
 
@@ -348,9 +351,17 @@ namespace noob
 
 	static versor versor_from_mat4(const mat4& m) noexcept(true)
 	{
-		Eigen::Map<const Eigen::Matrix4f> mat_map(&m.m[0]);
-		const Eigen::Quaternion<float> vv(mat_map); //Eigen::Matrix4f(&m.m[0]));
-		return versor_from_eigen(vv);
+		// Eigen::Map<const Eigen::Matrix4f> mat_map(&m.m[0]);
+		// const Eigen::Quaternion<float> vv(mat_map); //Eigen::Matrix4f(&m.m[0]));
+		// return versor_from_eigen(vv);
+		glm::mat4 mm = glm::make_mat4(&m.m[0]);
+		glm::quat q = glm::quat_cast(mm);
+		noob::versor qq;
+		qq.q[0] = q[0];
+		qq.q[1] = q[1];
+		qq.q[2] = q[2];
+		qq.q[3] = q[3];
+		return qq;
 	}
 
 	static vec3 lerp(const noob::vec3& a, const noob::vec3& b, float t) noexcept(true)
