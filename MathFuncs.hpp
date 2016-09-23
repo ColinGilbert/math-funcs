@@ -348,8 +348,8 @@ namespace noob
 
 	static versor versor_from_mat4(const mat4& m) noexcept(true)
 	{
-
-		const Eigen::Quaternion<float> vv(Eigen::Matrix4f(&m.m[0]));
+		Eigen::Map<const Eigen::Matrix4f> mat_map(&m.m[0]);
+		const Eigen::Quaternion<float> vv(mat_map); //Eigen::Matrix4f(&m.m[0]));
 		return versor_from_eigen(vv);
 	}
 
@@ -357,7 +357,6 @@ namespace noob
 	{ 
 		return a + (b - a) * t;
 	}
-
 
 	static versor versor_from_axis_rad(float radians, float x, float y, float z) noexcept(true)
 	{
