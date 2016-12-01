@@ -35,6 +35,13 @@ namespace noob
 	typedef mat3_type<float> mat3f;
 	typedef mat4_type<float> mat4f;
 
+	typedef vec2f vec2;
+	typedef vec3f vec3;
+	typedef vec4f vec4;
+	typedef versorf versor;
+	typedef mat3f mat3;
+	typedef mat4f mat4;
+
 	typedef vec2_type<double> vec2d;
 	typedef vec3_type<double> vec3d;
 	typedef vec4_type<double> vec4d;
