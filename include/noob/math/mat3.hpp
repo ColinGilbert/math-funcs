@@ -34,7 +34,7 @@ namespace noob
 
 			const T& operator[](uint32_t x) const noexcept(true)
 			{
-				return v[x];
+				return m[x];
 			}
 
 
