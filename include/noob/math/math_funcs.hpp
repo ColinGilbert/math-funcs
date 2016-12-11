@@ -35,13 +35,6 @@ namespace noob
 	typedef mat3_type<float> mat3f;
 	typedef mat4_type<float> mat4f;
 
-	typedef vec2f vec2;
-	typedef vec3f vec3;
-	typedef vec4f vec4;
-	typedef versorf versor;
-	typedef mat3f mat3;
-	typedef mat4f mat4;
-
 	typedef vec2_type<double> vec2d;
 	typedef vec3_type<double> vec3d;
 	typedef vec4_type<double> vec4d;
@@ -287,21 +280,6 @@ namespace noob
 	// QUATERNION FUNCTIONS:
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	static versor quat_from_axis_rad(float radians, float x, float y, float z) noexcept(true)
-	{
-		versor result;
-		result.q[0] = cos(radians / 2.0);
-		result.q[1] = sin(radians / 2.0) * x;
-		result.q[2] = sin(radians / 2.0) * y;
-		result.q[3] = sin(radians / 2.0) * z;
-		return result;
-	}
-
-	static versor quat_from_axis_deg (float degrees, float x, float y, float z) noexcept(true)
-	{
-		return quat_from_axis_rad (NOOB_ONE_DEG_IN_RAD * degrees, x, y, z);
-	}
-
 	static versor normalize(const versor& q) noexcept(true)
 	{
 		// norm(q) = q / magnitude (q)
@@ -401,7 +379,7 @@ namespace noob
 
 	static versor versor_from_axis_deg(float degrees, float x, float y, float z) noexcept(true)
 	{
-		return versor_from_axis_rad (NOOB_ONE_DEG_IN_RAD * degrees, x, y, z);
+		return versor_from_axis_rad(NOOB_ONE_DEG_IN_RAD * degrees, x, y, z);
 	}
 
 	static mat4 versor_to_mat4(const noob::versor& q) noexcept(true)
