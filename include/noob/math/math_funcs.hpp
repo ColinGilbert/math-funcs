@@ -734,7 +734,7 @@ namespace noob
 	static mat4<T> look_at(const vec3<T> cam_pos, vec3 targ_pos, const vec3<T> up) noexcept(true)
 	{
 		// inverse translation
-		mat4<T> p = identity_mat4<T>();
+		mat4<T> p = identity_mat4();
 		p = translate(p, vec3<T>(-cam_pos.v[0], -cam_pos.v[1], -cam_pos.v[2]));
 		// distance vector
 		vec3<T> d = targ_pos - cam_pos;
@@ -744,7 +744,7 @@ namespace noob
 		vec3<T> r = normalize(cross(f, up));
 		// real up vector
 		vec3<T> u = normalize(cross(r, f));
-		mat4<T> ori = identity_mat4<T>();
+		mat4<T> ori = identity_mat4();
 		ori.m[0] = r.v[0];
 		ori.m[4] = r.v[1];
 		ori.m[8] = r.v[2];
