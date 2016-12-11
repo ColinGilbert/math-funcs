@@ -69,24 +69,26 @@ namespace noob
 		X, Y, Z
 	};
 
+	template <typename T>
 	struct bbox
 	{
-		noob::vec3 get_dims() const noexcept(true)
+		noob::vec3<T> get_dims() const noexcept(true)
 		{
-			return noob::vec3(std::fabs(min.v[0]) + std::fabs(max.v[0]), std::fabs(min.v[1]) + std::fabs(max.v[1]), std::fabs(max.v[2]) + std::fabs(max.v[2]));
+			return noob::vec3<T>(std::fabs(min.v[0]) + std::fabs(max.v[0]), std::fabs(min.v[1]) + std::fabs(max.v[1]), std::fabs(max.v[2]) + std::fabs(max.v[2]));
 		}
 
 		void reset() noexcept(true)
 		{
-			min = max = noob::vec3(0.0, 0.0, 0.0);
+			min = max = noob::vec3<T>(0.0, 0.0, 0.0);
 		}
 
-		noob::vec3 min, max;
+		noob::vec3<T> min, max;
 	};
 
+	template <typename T>
 	struct cubic_region
 	{
-		vec3 lower_corner, upper_corner;
+		vec3<T> lower_corner, upper_corner;
 	};
 
 
@@ -140,7 +142,7 @@ namespace noob
 		return v;
 	}
 
-	static vec3f vec3_from_bullet(const btVector3& btVec) noexcept(true)
+	static vec3f vec3f_from_bullet(const btVector3& btVec) noexcept(true)
 	{
 		noob::vec3f v;
 		v.v[0] = btVec[0];
@@ -149,7 +151,7 @@ namespace noob
 		return v;
 	}
 
-	static vec3f vec3_from_eigen(const Eigen::Vector3f& p) noexcept(true)
+	static vec3f vec3f_from_eigen(const Eigen::Vector3f& p) noexcept(true)
 	{
 		noob::vec3f v;
 		v.v[0] = p[0];
@@ -159,7 +161,7 @@ namespace noob
 	}
 
 	// Whatever the hell you gotta do to compile sometimes, man...
-	static vec3f vec3_from_eigen_block(const Eigen::Block<const Eigen::Matrix<float, 4, 1>, 3, 1, false> n) noexcept(true)
+	static vec3f vec3f_from_eigen_block(const Eigen::Block<const Eigen::Matrix<float, 4, 1>, 3, 1, false> n) noexcept(true)
 	{
 		noob::vec3f v;
 		v.v[0] = n[0];
@@ -168,7 +170,7 @@ namespace noob
 		return v;
 	}
 
-	static versorf versor_from_bullet(const btQuaternion& arg) noexcept(true)
+	static versorf versorf_from_bullet(const btQuaternion& arg) noexcept(true)
 	{
 		noob::versorf qq;
 		qq.q[0] = arg[0];
@@ -178,7 +180,7 @@ namespace noob
 		return qq;
 	}
 
-	static versorf versor_from_eigen(const Eigen::Quaternion<float>& arg) noexcept(true)
+	static versorf versorf_from_eigen(const Eigen::Quaternion<float>& arg) noexcept(true)
 	{
 		noob::versorf qq;
 		qq.q[0] = arg.x();
@@ -188,7 +190,7 @@ namespace noob
 		return qq;
 	}
 
-	static mat4f mat4_from_bullet(const btTransform arg) noexcept(true)
+	static mat4f mat4f_from_bullet(const btTransform arg) noexcept(true)
 	{
 		noob::mat4f t;
 		arg.getOpenGLMatrix(&t.m[0]);
@@ -230,14 +232,14 @@ namespace noob
 	static vec3<T> normalize(const vec3<T> v) noexcept(true)
 	{
 		vec3<T> vb;
-		float l = length(v);
-		if (0.0f == l)
+		float len = length(v);
+		if (0.0 == len)
 		{
-			return vec3 (0.0f, 0.0f, 0.0f);
+			return vec3<T>(0.0, 0.0, 0.0);
 		}
-		vb.v[0] = v.v[0] / l;
-		vb.v[1] = v.v[1] / l;
-		vb.v[2] = v.v[2] / l;
+		vb.v[0] = v.v[0] / len;
+		vb.v[1] = v.v[1] / len;
+		vb.v[2] = v.v[2] / len;
 		return vb;
 	}
 
@@ -271,12 +273,14 @@ namespace noob
 	{
 		return atan2 (-d.v[0], d.v[2]) * NOOB_ONE_RAD_IN_DEG;
 	}
+
 	template <typename T>
 	static vec3<T> heading_to_direction(float degrees) noexcept(true)
 	{
 		float rad = degrees * NOOB_ONE_DEG_IN_RAD;
-		return vec3<T>(-sinf (rad), 0.0f, -cosf (rad));
+		return vec3<T>(-sinf(rad), 0.0f, -cosf(rad));
 	}
+
 	template <typename T>
 	static bool linearly_dependent(const noob::vec3<T>& a, const noob::vec3<T>& b, const noob::vec3<T>& c) noexcept(true)
 	{
@@ -284,7 +288,6 @@ namespace noob
 		if (dot(cross(a, b), c) == 0.0) return true;
 		else return false;
 	}
-
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// QUATERNION FUNCTIONS:
@@ -341,7 +344,7 @@ namespace noob
 		// Calculate temporary values
 		float sin_half_theta = sqrt(1.0f - cos_half_theta * cos_half_theta);
 		// If theta = 180 degrees then result is not fully defined we could rotate around any axis normal to qa or qb
-		versor result;
+		versor<T> result;
 		if (fabs(sin_half_theta) < 0.001f)
 		{
 			for (int i = 0; i < 4; i++)
@@ -463,6 +466,7 @@ namespace noob
 
 	// Returns a scalar value with the determinant for a 4x4 matrix
 	// see http://www.euclideanspace.com/maths/algebra/matrix/functions/determinant/fourD/index.htm
+	template <typename T>	
 	static float determinant(const mat4<T>& mm) noexcept(true)
 	{
 		return
@@ -611,7 +615,7 @@ namespace noob
 	template <typename T>
 	static mat4<T> translate(const mat4<T>& m, const vec3<T> v) noexcept(true)
 	{
-		mat4 m_t = identity_mat4();
+		mat4<T> m_t = identity_mat4();
 		m_t.m[12] = v.v[0];
 		m_t.m[13] = v.v[1];
 		m_t.m[14] = v.v[2];
@@ -630,10 +634,10 @@ namespace noob
 		// convert to radians
 		float rad = deg * NOOB_ONE_DEG_IN_RAD;
 		mat4<T> m_r = identity_mat4();
-		m_r.m[5] = cos (rad);
-		m_r.m[9] = -sin (rad);
-		m_r.m[6] = sin (rad);
-		m_r.m[10] = cos (rad);
+		m_r.m[5] = cos(rad);
+		m_r.m[9] = -sin(rad);
+		m_r.m[6] = sin(rad);
+		m_r.m[10] = cos(rad);
 		return m_r * m;
 	}
 
@@ -643,10 +647,10 @@ namespace noob
 		// convert to radians
 		const float rad = deg * NOOB_ONE_DEG_IN_RAD;
 		mat4<T> m_r = identity_mat4();
-		m_r.m[0] = cos (rad);
-		m_r.m[8] = sin (rad);
-		m_r.m[2] = -sin (rad);
-		m_r.m[10] = cos (rad);
+		m_r.m[0] = cos(rad);
+		m_r.m[8] = sin(rad);
+		m_r.m[2] = -sin(rad);
+		m_r.m[10] = cos(rad);
 		return m_r * m;
 	}
 
@@ -656,10 +660,10 @@ namespace noob
 		// convert to radians
 		const float rad = deg * NOOB_ONE_DEG_IN_RAD;
 		mat4<T> m_r = identity_mat4();
-		m_r.m[0] = cos (rad);
-		m_r.m[4] = -sin (rad);
-		m_r.m[1] = sin (rad);
-		m_r.m[5] = cos (rad);
+		m_r.m[0] = cos(rad);
+		m_r.m[4] = -sin(rad);
+		m_r.m[1] = sin(rad);
+		m_r.m[5] = cos(rad);
 		return m_r * m;
 	}
 
@@ -714,17 +718,17 @@ namespace noob
 	static mat4<T> look_at(const vec3<T> cam_pos, vec3 targ_pos, const vec3<T> up) noexcept(true)
 	{
 		// inverse translation
-		mat4 p = identity_mat4 ();
-		p = translate (p, vec3 (-cam_pos.v[0], -cam_pos.v[1], -cam_pos.v[2]));
+		mat4<T> p = identity_mat4 ();
+		p = translate(p, vec3<T>(-cam_pos.v[0], -cam_pos.v[1], -cam_pos.v[2]));
 		// distance vector
-		vec3 d = targ_pos - cam_pos;
+		vec3<T> d = targ_pos - cam_pos;
 		// forward vector
-		vec3 f = normalize (d);
+		vec3<T> f = normalize (d);
 		// right vector
-		vec3 r = normalize (cross (f, up));
+		vec3<T> r = normalize(cross(f, up));
 		// real up vector
-		vec3 u = normalize (cross (r, f));
-		mat4 ori = identity_mat4 ();
+		vec3<T> u = normalize(cross(r, f));
+		mat4<T> ori = identity_mat4();
 		ori.m[0] = r.v[0];
 		ori.m[4] = r.v[1];
 		ori.m[8] = r.v[2];
@@ -748,7 +752,7 @@ namespace noob
 		float sy = near / range;
 		float sz = -(far + near) / (far - near);
 		float pz = -(2.0f * far * near) / (far - near);
-		mat4 m = zero_mat4 (); // make sure bottom-right corner is zero
+		mat4<T> m = zero_mat4 (); // make sure bottom-right corner is zero
 		m.m[0] = sx;
 		m.m[5] = sy;
 		m.m[10] = sz;
@@ -766,7 +770,7 @@ namespace noob
 	template <typename T>
 	static mat4<T> mat4 ortho(float left, float right, float bottom, float top, float near, float far) noexcept(true)
 	{
-		mat4 m = zero_mat4();
+		mat4<T> m = zero_mat4();
 		m.m[0] = 2.0/(right-left);
 		m.m[5] = 2.0/(top - bottom);
 		m.m[10] = -2.0/(far - near);
