@@ -718,12 +718,12 @@ namespace noob
 	static mat4<T> look_at(const vec3<T> cam_pos, vec3 targ_pos, const vec3<T> up) noexcept(true)
 	{
 		// inverse translation
-		mat4<T> p = identity_mat4 ();
+		mat4<T> p = identity_mat4<T>();
 		p = translate(p, vec3<T>(-cam_pos.v[0], -cam_pos.v[1], -cam_pos.v[2]));
 		// distance vector
 		vec3<T> d = targ_pos - cam_pos;
 		// forward vector
-		vec3<T> f = normalize (d);
+		vec3<T> f = normalize(d);
 		// right vector
 		vec3<T> r = normalize(cross(f, up));
 		// real up vector
@@ -752,7 +752,7 @@ namespace noob
 		float sy = near / range;
 		float sz = -(far + near) / (far - near);
 		float pz = -(2.0f * far * near) / (far - near);
-		mat4<T> m = zero_mat4 (); // make sure bottom-right corner is zero
+		mat4<T> m = zero_mat4<T>(); // make sure bottom-right corner is zero
 		m.m[0] = sx;
 		m.m[5] = sy;
 		m.m[10] = sz;
