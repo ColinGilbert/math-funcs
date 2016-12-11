@@ -50,6 +50,7 @@ namespace noob
 	typedef mat4_type<uint32_t> mat4ui;
 
 
+
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// UTILITY TYPES:
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -92,9 +93,25 @@ namespace noob
 	};
 
 
+	static uint32_t next_pow2(uint32_t arg)
+	{
+		int64_t val = arg;
+		--val;
+		val |= val >> 1;
+		val |= val >> 2;
+		val |= val >> 4;
+		val |= val >> 8;
+		val |= val >> 16;
+		val |= val >> 32;
+		++val;
+		return static_cast<uint32_t>(val);
+	}
+
+
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// ONE-FLOAT FUNCTIONS:
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// TODO: Test
 
 	template <typename T> int sign(T val) noexcept(true)
 	{
@@ -271,7 +288,7 @@ namespace noob
 	template <typename T>	
 	static float direction_to_heading(const vec3<T> d) noexcept(true)
 	{
-		return atan2 (-d.v[0], d.v[2]) * NOOB_ONE_RAD_IN_DEG;
+		return atan2(-d.v[0], d.v[2]) * NOOB_ONE_RAD_IN_DEG;
 	}
 
 	template <typename T>
@@ -439,7 +456,7 @@ namespace noob
 				0.0f, 0.0f, 0.0f);
 	}
 	template <typename T>
-	static mat3<T> dentity_mat3() noexcept(true)
+	static mat3<T> identity_mat3() noexcept(true)
 	{
 		return mat3<T>(	1.0f, 0.0f, 0.0f,
 				0.0f, 1.0f, 0.0f,
@@ -456,7 +473,7 @@ namespace noob
 	}
 
 	template <typename T>
-	static mat4<T>  identity_mat4() noexcept(true)
+	static mat4<T> identity_mat4() noexcept(true)
 	{
 		return mat4<T>(	1.0f, 0.0f, 0.0f, 0.0f,
 				0.0f, 1.0f, 0.0f, 0.0f,
@@ -495,7 +512,6 @@ namespace noob
 			mm.m[4] * mm.m[1] * mm.m[10] * mm.m[15] +
 			mm.m[0] * mm.m[5] * mm.m[10] * mm.m[15];
 	}
-
 
 	// returns a 16-element array that is the inverse of a 16-element array (4x4 matrix). see http://www.euclideanspace.com/maths/algebra/matrix/functions/inverse/fourD/index.htm
 	template <typename T>
@@ -600,7 +616,7 @@ namespace noob
 	template <typename T>
 	static mat4<T> transpose(const mat4<T>& mm) noexcept(true)
 	{
-		return mat4<T> (
+		return mat4<T>(
 				mm.m[0], mm.m[4], mm.m[8], mm.m[12],
 				mm.m[1], mm.m[5], mm.m[9], mm.m[13],
 				mm.m[2], mm.m[6], mm.m[10], mm.m[14],
@@ -728,7 +744,7 @@ namespace noob
 		vec3<T> r = normalize(cross(f, up));
 		// real up vector
 		vec3<T> u = normalize(cross(r, f));
-		mat4<T> ori = identity_mat4();
+		mat4<T> ori = identity_mat4<T>();
 		ori.m[0] = r.v[0];
 		ori.m[4] = r.v[1];
 		ori.m[8] = r.v[2];
