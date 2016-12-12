@@ -628,7 +628,7 @@ namespace noob
 	{
 		// convert to radians
 		float rad = deg * NOOB_ONE_DEG_IN_RAD;
-		mat4_type<T> m_r = identity_mat4<T><T>();
+		mat4_type<T> m_r = identity_mat4<T>();
 		m_r.m[5] = cos(rad);
 		m_r.m[9] = -sin(rad);
 		m_r.m[6] = sin(rad);
