@@ -791,15 +791,15 @@ namespace noob
 	template <typename T>
 	static bbox_type<T> update_bbox_type(const noob::bbox_type<T>& b, const noob::vec3_type<T>& v)
 	{
-		bbox_type bb<T>;
+		bbox_type<T> results;
 
-		bb.min[0] = std::min(b.min[0], v[0]);
-		bb.min[1] = std::min(b.min[1], v[1]);
-		bb.min[2] = std::min(b.min[2], v[2]);
+		results.min[0] = std::min(b.min[0], v[0]);
+		results.min[1] = std::min(b.min[1], v[1]);
+		results.min[2] = std::min(b.min[2], v[2]);
 
-		bb.max[0] = std::max(b.max[0], v[0]);
-		bb.max[1] = std::max(b.max[1], v[1]);
-		bb.max[2] = std::max(b.max[2], v[2]);
+		results.max[0] = std::max(b.max[0], v[0]);
+		results.max[1] = std::max(b.max[1], v[1]);
+		results.max[2] = std::max(b.max[2], v[2]);
 
 		return bb;
 	}
