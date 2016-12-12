@@ -747,7 +747,7 @@ namespace noob
 		float sy = near / range;
 		float sz = -(far + near) / (far - near);
 		float pz = -(2.0f * far * near) / (far - near);
-		mat4_type<T> m = zero_mat4<T>; // make sure bottom-right corner is zero
+		mat4_type<T> m = zero_mat4<T>(); // make sure bottom-right corner is zero
 		m.m[0] = sx;
 		m.m[5] = sy;
 		m.m[10] = sz;
@@ -765,7 +765,7 @@ namespace noob
 	template <typename T>
 	static mat4_type<T> ortho(float left, float right, float bottom, float top, float near, float far) noexcept(true)
 	{
-		mat4_type<T> m = zero_mat4<T>;
+		mat4_type<T> m = zero_mat4<T>();
 		m.m[0] = 2.0/(right-left);
 		m.m[5] = 2.0/(top - bottom);
 		m.m[10] = -2.0/(far - near);
