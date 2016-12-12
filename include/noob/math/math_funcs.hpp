@@ -394,7 +394,7 @@ namespace noob
 	template <typename T>
 	static versor_type<T> versor_from_axis_deg(float degrees, float x, float y, float z) noexcept(true)
 	{
-		return versor_from_axis_rad(NOOB_ONE_DEG_IN_RAD * degrees, x, y, z);
+		return versor_from_axis_rad<T>(NOOB_ONE_DEG_IN_RAD * degrees, x, y, z);
 	}
 
 	template <typename T>
@@ -763,7 +763,7 @@ namespace noob
 	   3 7 11 15
 	   */
 	template <typename T>
-	static mat4_type<T> mat4 ortho(float left, float right, float bottom, float top, float near, float far) noexcept(true)
+	static mat4_type<T> ortho(float left, float right, float bottom, float top, float near, float far) noexcept(true)
 	{
 		mat4_type<T> m = zero_mat4<T>;
 		m.m[0] = 2.0/(right-left);
