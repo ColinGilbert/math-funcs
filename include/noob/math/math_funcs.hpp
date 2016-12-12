@@ -641,7 +641,7 @@ namespace noob
 	{
 		// convert to radians
 		const float rad = deg * NOOB_ONE_DEG_IN_RAD;
-		typename mat4_type<T> m_r = identity_mat4();
+		mat4_type<typename T> m_r = identity_mat4();
 		m_r.m[0] = cos(rad);
 		m_r.m[8] = sin(rad);
 		m_r.m[2] = -sin(rad);
