@@ -34,6 +34,7 @@ namespace noob
 	typedef versor_type<float> versorf;
 	typedef mat3_type<float> mat3f;
 	typedef mat4_type<float> mat4f;
+	typedef bbox_type<float> bboxf;
 
 	typedef vec2_type<double> vec2d;
 	typedef vec3_type<double> vec3d;
@@ -70,28 +71,14 @@ namespace noob
 		X, Y, Z
 	};
 
-	template <typename T>
-	struct bbox
-	{
-		noob::vec3_type<T> get_dims() const noexcept(true)
-		{
-			return noob::vec3_type<T>(std::fabs(min.v[0]) + std::fabs(max.v[0]), std::fabs(min.v[1]) + std::fabs(max.v[1]), std::fabs(max.v[2]) + std::fabs(max.v[2]));
-		}
 
-		void reset() noexcept(true)
-		{
-			min = max = noob::vec3_type<T>(0.0, 0.0, 0.0);
-		}
-
-		noob::vec3_type<T> min, max;
-	};
-
+/*
 	template <typename T>
 	struct cubic_region
 	{
 		vec3_type<T> lower_corner, upper_corner;
 	};
-
+*/
 
 	static uint32_t next_pow2(uint32_t arg)
 	{
@@ -802,9 +789,9 @@ namespace noob
 	// GEOMETRY UTILITY FUNCTIONS:
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	template <typename T>
-	static bbox<T> update_bbox(const noob::bbox<T>& b, const noob::vec3_type<T>& v)
+	static bbox_type<T> update_bbox_type(const noob::bbox_type<T>& b, const noob::vec3_type<T>& v)
 	{
-		bbox bb<T>;
+		bbox_type bb<T>;
 
 		bb.min[0] = std::min(b.min[0], v[0]);
 		bb.min[1] = std::min(b.min[1], v[1]);
@@ -818,12 +805,12 @@ namespace noob
 	}
 
 	template <typename T>
-	static bbox<T> update_bbox(const noob::bbox<T>& a, const noob::bbox<T>& b)
+	static bbox_type<T> update_bbox_type(const noob::bbox_type<T>& a, const noob::bbox_type<T>& b)
 	{
-		noob::bbox<T> results;
+		noob::bbox_type<T> results;
 
-		results = update_bbox(a, b.min);
-		results = update_bbox(results, b.max);
+		results = update_bbox_type(a, b.min);
+		results = update_bbox_type(results, b.max);
 
 		return results;
 	}
