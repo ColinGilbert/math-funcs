@@ -710,7 +710,7 @@ namespace noob
 
 	// Returns a view matrix using the opengl lookAt style. COLUMN ORDER:
 	template <typename T>
-	static mat4_type<T> look_at(const vec3_type<T> cam_pos, const vec3<T> targ_pos, const vec3_type<T> up) noexcept(true)
+	static mat4_type<T> look_at(const vec3_type<T> cam_pos, const vec3_type<T> targ_pos, const vec3_type<T> up) noexcept(true)
 	{
 		// inverse translation
 		mat4_type<T> p = identity_mat4();
