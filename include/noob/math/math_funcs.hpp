@@ -73,23 +73,23 @@ namespace noob
 	template <typename T>
 	struct bbox
 	{
-		noob::vec3<T> get_dims() const noexcept(true)
+		noob::vec3_type<T> get_dims() const noexcept(true)
 		{
-			return noob::vec3<T>(std::fabs(min.v[0]) + std::fabs(max.v[0]), std::fabs(min.v[1]) + std::fabs(max.v[1]), std::fabs(max.v[2]) + std::fabs(max.v[2]));
+			return noob::vec3_type<T>(std::fabs(min.v[0]) + std::fabs(max.v[0]), std::fabs(min.v[1]) + std::fabs(max.v[1]), std::fabs(max.v[2]) + std::fabs(max.v[2]));
 		}
 
 		void reset() noexcept(true)
 		{
-			min = max = noob::vec3<T>(0.0, 0.0, 0.0);
+			min = max = noob::vec3_type<T>(0.0, 0.0, 0.0);
 		}
 
-		noob::vec3<T> min, max;
+		noob::vec3_type<T> min, max;
 	};
 
 	template <typename T>
 	struct cubic_region
 	{
-		vec3<T> lower_corner, upper_corner;
+		vec3_type<T> lower_corner, upper_corner;
 	};
 
 
@@ -140,9 +140,9 @@ namespace noob
 	// CONVERSION UTILITY FUNCTIONS:
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	template <typename T>
-	static vec3<T> vec3_from_vec4(const vec4<T>& vv) noexcept(true)
+	static vec3_type<T> vec3_from_vec4(const vec4_type<T>& vv) noexcept(true)
 	{
-		noob::vec3<T> v;
+		noob::vec3_type<T> v;
 		v.v[0] = vv.v[0];
 		v.v[1] = vv.v[1];
 		v.v[2] = vv.v[2];
@@ -150,9 +150,9 @@ namespace noob
 	}
 
 	template <typename T>
-	static vec3<T> vec3_from_array(const std::array<T, 3>& a) noexcept(true)
+	static vec3_type<T> vec3_from_array(const std::array<T, 3>& a) noexcept(true)
 	{
-		noob::vec3<T> v;
+		noob::vec3_type<T> v;
 		v.v[0] = a[0];
 		v.v[1] = a[1];
 		v.v[2] = a[2];
@@ -218,13 +218,13 @@ namespace noob
 	// VECTOR FUNCTIONS:
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	template <typename T>
-	static noob::vec3<T> negate(const noob::vec3<T>& arg) noexcept(true)
+	static noob::vec3_type<T> negate(const noob::vec3_type<T>& arg) noexcept(true)
 	{
 		return arg * -1.0;
 	}
 	
 	template <typename T>
-	static bool vec3_equality(const vec3<T> first, const vec3<T> second) noexcept(true)
+	static bool vec3_equality(const vec3_type<T> first, const vec3_type<T> second) noexcept(true)
 	{
 		for (size_t i = 0; i < 3; ++i)
 		{
@@ -234,25 +234,25 @@ namespace noob
 	}
 
 	template <typename T>
-	static float length_squared(const vec3<T> v) noexcept(true)
+	static float length_squared(const vec3_type<T> v) noexcept(true)
 	{
 		return v.v[0] * v.v[0] + v.v[1] * v.v[1] + v.v[2] * v.v[2];
 	}
 	
 	template <typename T>
-	static float length(const vec3<T> v) noexcept(true)
+	static float length(const vec3_type<T> v) noexcept(true)
 	{
 		return sqrt(v.v[0] * v.v[0] + v.v[1] * v.v[1] + v.v[2] * v.v[2]);
 	}
 
 	template <typename T>
-	static vec3<T> normalize(const vec3<T> v) noexcept(true)
+	static vec3_type<T> normalize(const vec3_type<T> v) noexcept(true)
 	{
-		vec3<T> vb;
+		vec3_type<T> vb;
 		float len = length(v);
 		if (0.0 == len)
 		{
-			return vec3<T>(0.0, 0.0, 0.0);
+			return vec3_type<T>(0.0, 0.0, 0.0);
 		}
 		vb.v[0] = v.v[0] / len;
 		vb.v[1] = v.v[1] / len;
@@ -261,22 +261,22 @@ namespace noob
 	}
 
 	template <typename T>
-	static float dot(const vec3<T>& a, const vec3<T>& b) noexcept(true)
+	static float dot(const vec3_type<T>& a, const vec3_type<T>& b) noexcept(true)
 	{
 		return a.v[0] * b.v[0] + a.v[1] * b.v[1] + a.v[2] * b.v[2];
 	}
 
 	template <typename T>
-	static vec3<T> cross(const vec3<T>& a, const vec3<T>& b) noexcept(true)
+	static vec3_type<T> cross(const vec3_type<T>& a, const vec3_type<T>& b) noexcept(true)
 	{
 		float x = a.v[1] * b.v[2] - a.v[2] * b.v[1];
 		float y = a.v[2] * b.v[0] - a.v[0] * b.v[2];
 		float z = a.v[0] * b.v[1] - a.v[1] * b.v[0];
-		return vec3<T>(x, y, z);
+		return vec3_type<T>(x, y, z);
 	}
 
 	template <typename T>
-	static float get_squared_dist(const vec3<T> from, const vec3<T> to) noexcept(true)
+	static float get_squared_dist(const vec3_type<T> from, const vec3_type<T> to) noexcept(true)
 	{
 		float x = (to.v[0] - from.v[0]) * (to.v[0] - from.v[0]);
 		float y = (to.v[1] - from.v[1]) * (to.v[1] - from.v[1]);
@@ -286,20 +286,20 @@ namespace noob
 
 	// Converts an un-normalized direction into a heading in degrees.
 	template <typename T>	
-	static float direction_to_heading(const vec3<T> d) noexcept(true)
+	static float direction_to_heading(const vec3_type<T> d) noexcept(true)
 	{
 		return atan2(-d.v[0], d.v[2]) * NOOB_ONE_RAD_IN_DEG;
 	}
 
 	template <typename T>
-	static vec3<T> heading_to_direction(float degrees) noexcept(true)
+	static vec3_type<T> heading_to_direction(float degrees) noexcept(true)
 	{
 		float rad = degrees * NOOB_ONE_DEG_IN_RAD;
-		return vec3<T>(-sinf(rad), 0.0f, -cosf(rad));
+		return vec3_type<T>(-sinf(rad), 0.0f, -cosf(rad));
 	}
 
 	template <typename T>
-	static bool linearly_dependent(const noob::vec3<T>& a, const noob::vec3<T>& b, const noob::vec3<T>& c) noexcept(true)
+	static bool linearly_dependent(const noob::vec3_type<T>& a, const noob::vec3_type<T>& b, const noob::vec3_type<T>& c) noexcept(true)
 	{
 		// if (a cross b) dot c = 0
 		if (dot(cross(a, b), c) == 0.0) return true;
@@ -311,12 +311,12 @@ namespace noob
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	template <typename T>
-	static versor<T> normalize(const versor<T>& q) noexcept(true)
+	static versor_type<T> normalize(const versor_type<T>& q) noexcept(true)
 	{
 		// norm(q) = q / magnitude (q)
 		// magnitude (q) = sqrt (w*w + x*x...)
 		// only compute sqrt if interior sum != 1.0
-		versor<T> qq(q);
+		versor_type<T> qq(q);
 		float sum = qq.q[0] * qq.q[0] + qq.q[1] * qq.q[1] + qq.q[2] * qq.q[2] + qq.q[3] * qq.q[3];
 		// NB: floats have min 6 digits of precision
 		const float thresh = 0.0001f;
@@ -329,15 +329,15 @@ namespace noob
 	}
 
 	template <typename T>
-	static float dot(const versor<T>& q, const versor<T>& r) noexcept(true)
+	static float dot(const versor_type<T>& q, const versor_type<T>& r) noexcept(true)
 	{
 		return q.q[0] * r.q[0] + q.q[1] * r.q[1] + q.q[2] * r.q[2] + q.q[3] * r.q[3];
 	}
 
 	template <typename T>
-	static versor<T> slerp(const versor<T>& q, const versor<T>& r, float t) noexcept(true)
+	static versor_type<T> slerp(const versor_type<T>& q, const versor_type<T>& r, float t) noexcept(true)
 	{
-		versor<T> temp_q(q);
+		versor_type<T> temp_q(q);
 		// angle between q0-q1
 		float cos_half_theta = dot(temp_q, r);
 		// as found here http://stackoverflow.com/questions/2886606/flipping-issue-when-interpolating-rotations-using-quaternions
@@ -361,7 +361,7 @@ namespace noob
 		// Calculate temporary values
 		float sin_half_theta = sqrt(1.0f - cos_half_theta * cos_half_theta);
 		// If theta = 180 degrees then result is not fully defined we could rotate around any axis normal to qa or qb
-		versor<T> result;
+		versor_type<T> result;
 		if (fabs(sin_half_theta) < 0.001f)
 		{
 			for (int i = 0; i < 4; i++)
@@ -381,14 +381,14 @@ namespace noob
 	}
 
 	template <typename T>
-	static versor<T> versor_from_mat4(const mat4<T>& m) noexcept(true)
+	static versor_type<T> versor_from_mat4(const mat4_type<T>& m) noexcept(true)
 	{
 		// Eigen::Map<const Eigen::Matrix4f> mat_map(&m.m[0]);
 		// const Eigen::Quaternion<float> vv(mat_map); //Eigen::Matrix4f(&m.m[0]));
 		// return versor_from_eigen(vv);
 		glm::mat4 mm = glm::make_mat4(&m.m[0]);
 		glm::quat q = glm::quat_cast(mm);
-		noob::versor<T> qq;
+		noob::versor_type<T> qq;
 		qq.q[0] = q[0];
 		qq.q[1] = q[1];
 		qq.q[2] = q[2];
@@ -397,15 +397,15 @@ namespace noob
 	}
 
 	template <typename T>
-	static vec3<T> lerp(const noob::vec3<T>& a, const noob::vec3<T>& b, float t) noexcept(true)
+	static vec3_type<T> lerp(const noob::vec3_type<T>& a, const noob::vec3_type<T>& b, float t) noexcept(true)
 	{ 
 		return a + (b - a) * t;
 	}
 
 	template <typename T>
-	static versor<T> versor_from_axis_rad(float radians, float x, float y, float z) noexcept(true)
+	static versor_type<T> versor_from_axis_rad(float radians, float x, float y, float z) noexcept(true)
 	{
-		versor<T> result;
+		versor_type<T> result;
 		result.q[0] = cos (radians / 2.0);
 		result.q[1] = sin (radians / 2.0) * x;
 		result.q[2] = sin (radians / 2.0) * y;
@@ -413,19 +413,19 @@ namespace noob
 		return result;
 	}
 	template <typename T>
-	static versor<T> versor_from_axis_deg(float degrees, float x, float y, float z) noexcept(true)
+	static versor_type<T> versor_from_axis_deg(float degrees, float x, float y, float z) noexcept(true)
 	{
 		return versor_from_axis_rad(NOOB_ONE_DEG_IN_RAD * degrees, x, y, z);
 	}
 
 	template <typename T>
-	static mat4<T> versor_to_mat4(const noob::versor<T>& q) noexcept(true)
+	static mat4_type<T> versor_to_mat4(const noob::versor_type<T>& q) noexcept(true)
 	{
 		const float w = q.q[0];
 		const float x = q.q[1];
 		const float y = q.q[2];
 		const float z = q.q[3];
-		return mat4<T>(1.0f - 2.0f * y * y - 2.0f * z * z,
+		return mat4_type<T>(1.0f - 2.0f * y * y - 2.0f * z * z,
 				2.0f * x * y + 2.0f * w * z,
 				2.0f * x * z - 2.0f * w * y,
 				0.0f,
@@ -449,33 +449,33 @@ namespace noob
 	// MATRIX FUNCTIONS:
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	template <typename T>
-	static mat3<T> zero_mat3() noexcept(true)
+	static mat3_type<T> zero_mat3() noexcept(true)
 	{
-		return mat3<T>(	0.0f, 0.0f, 0.0f,
+		return mat3_type<T>(	0.0f, 0.0f, 0.0f,
 				0.0f, 0.0f, 0.0f,
 				0.0f, 0.0f, 0.0f);
 	}
 	template <typename T>
-	static mat3<T> identity_mat3() noexcept(true)
+	static mat3_type<T> identity_mat3() noexcept(true)
 	{
-		return mat3<T>(	1.0f, 0.0f, 0.0f,
+		return mat3_type<T>(	1.0f, 0.0f, 0.0f,
 				0.0f, 1.0f, 0.0f,
 				0.0f, 0.0f, 1.0f);
 	}
 
 	template <typename T>
-	static mat4<T> zero_mat4() noexcept(true)
+	static mat4_type<T> zero_mat4() noexcept(true)
 	{
-		return mat4<T>(	0.0f, 0.0f, 0.0f, 0.0f,
+		return mat4_type<T>(	0.0f, 0.0f, 0.0f, 0.0f,
 				0.0f, 0.0f, 0.0f, 0.0f,
 				0.0f, 0.0f, 0.0f, 0.0f,
 				0.0f, 0.0f, 0.0f, 0.0f);
 	}
 
 	template <typename T>
-	static mat4<T> identity_mat4() noexcept(true)
+	static mat4_type<T> identity_mat4() noexcept(true)
 	{
-		return mat4<T>(	1.0f, 0.0f, 0.0f, 0.0f,
+		return mat4_type<T>(	1.0f, 0.0f, 0.0f, 0.0f,
 				0.0f, 1.0f, 0.0f, 0.0f,
 				0.0f, 0.0f, 1.0f, 0.0f,
 				0.0f, 0.0f, 0.0f, 1.0f);
@@ -484,7 +484,7 @@ namespace noob
 	// Returns a scalar value with the determinant for a 4x4 matrix
 	// see http://www.euclideanspace.com/maths/algebra/matrix/functions/determinant/fourD/index.htm
 	template <typename T>	
-	static float determinant(const mat4<T>& mm) noexcept(true)
+	static float determinant(const mat4_type<T>& mm) noexcept(true)
 	{
 		return
 			mm.m[12] * mm.m[9] * mm.m[6] * mm.m[3] -
@@ -515,7 +515,7 @@ namespace noob
 
 	// returns a 16-element array that is the inverse of a 16-element array (4x4 matrix). see http://www.euclideanspace.com/maths/algebra/matrix/functions/inverse/fourD/index.htm
 	template <typename T>
-	static mat4<T> inverse(const mat4<T>& mm) noexcept(true)
+	static mat4_type<T> inverse(const mat4_type<T>& mm) noexcept(true)
 	{
 		float det = determinant(mm);
 
@@ -528,7 +528,7 @@ namespace noob
 
 		float inv_det = 1.0f / det;
 
-		return mat4<T> (
+		return mat4_type<T> (
 				inv_det * (
 					mm.m[9] * mm.m[14] * mm.m[7] - mm.m[13] * mm.m[10] * mm.m[7] +
 					mm.m[13] * mm.m[6] * mm.m[11] - mm.m[5] * mm.m[14] * mm.m[11] -
@@ -614,9 +614,9 @@ namespace noob
 
 	// Returns a 16-element array flipped on the main diagonal
 	template <typename T>
-	static mat4<T> transpose(const mat4<T>& mm) noexcept(true)
+	static mat4_type<T> transpose(const mat4_type<T>& mm) noexcept(true)
 	{
-		return mat4<T>(
+		return mat4_type<T>(
 				mm.m[0], mm.m[4], mm.m[8], mm.m[12],
 				mm.m[1], mm.m[5], mm.m[9], mm.m[13],
 				mm.m[2], mm.m[6], mm.m[10], mm.m[14],
@@ -629,9 +629,9 @@ namespace noob
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	template <typename T>
-	static mat4<T> translate(const mat4<T>& m, const vec3<T> v) noexcept(true)
+	static mat4_type<T> translate(const mat4_type<T>& m, const vec3_type<T> v) noexcept(true)
 	{
-		mat4<T> m_t = identity_mat4();
+		mat4_type<T> m_t = identity_mat4();
 		m_t.m[12] = v.v[0];
 		m_t.m[13] = v.v[1];
 		m_t.m[14] = v.v[2];
@@ -639,17 +639,17 @@ namespace noob
 	}
 
 	template <typename T>
-	static mat4<T> rotate(const mat4<T>& m, const versor<T>& v) noexcept(true)
+	static mat4_type<T> rotate(const mat4_type<T>& m, const versor_type<T>& v) noexcept(true)
 	{
 		return versor_to_mat4(v) * m;
 	}
 
 	template <typename T>
-	static mat4<T> rotate_x_deg(const mat4<T>& m, float deg) noexcept(true)
+	static mat4_type<T> rotate_x_deg(const mat4_type<T>& m, float deg) noexcept(true)
 	{
 		// convert to radians
 		float rad = deg * NOOB_ONE_DEG_IN_RAD;
-		mat4<T> m_r = identity_mat4();
+		mat4_type<T> m_r = identity_mat4();
 		m_r.m[5] = cos(rad);
 		m_r.m[9] = -sin(rad);
 		m_r.m[6] = sin(rad);
@@ -658,11 +658,11 @@ namespace noob
 	}
 
 	template <typename T>
-	static mat4<T> rotate_y_deg(const mat4<T>& m, float deg) noexcept(true)
+	static mat4_type<T> rotate_y_deg(const mat4_type<T>& m, float deg) noexcept(true)
 	{
 		// convert to radians
 		const float rad = deg * NOOB_ONE_DEG_IN_RAD;
-		mat4<T> m_r = identity_mat4();
+		mat4_type<T> m_r = identity_mat4();
 		m_r.m[0] = cos(rad);
 		m_r.m[8] = sin(rad);
 		m_r.m[2] = -sin(rad);
@@ -671,11 +671,11 @@ namespace noob
 	}
 
 	template <typename T>
-	static mat4<T> rotate_z_deg(const mat4<T>& m, float deg) noexcept(true)
+	static mat4_type<T> rotate_z_deg(const mat4_type<T>& m, float deg) noexcept(true)
 	{
 		// convert to radians
 		const float rad = deg * NOOB_ONE_DEG_IN_RAD;
-		mat4<T> m_r = identity_mat4();
+		mat4_type<T> m_r = identity_mat4();
 		m_r.m[0] = cos(rad);
 		m_r.m[4] = -sin(rad);
 		m_r.m[1] = sin(rad);
@@ -684,30 +684,30 @@ namespace noob
 	}
 
 	template <typename T>
-	static mat4<T> scale(const mat4<T>& m, const vec3<T> v) noexcept(true)
+	static mat4_type<T> scale(const mat4_type<T>& m, const vec3_type<T> v) noexcept(true)
 	{
-		mat4<T> a = identity_mat4();
+		mat4_type<T> a = identity_mat4();
 		a.m[0] = v.v[0];
 		a.m[5] = v.v[1];
 		a.m[10] = v.v[2];
 		return a * m;
 	}
 	template <typename T>
-	static vec3<T> get_normal(const std::array<noob::vec3, 3>& vertices) noexcept(true)
+	static vec3_type<T> get_normal(const std::array<noob::vec3, 3>& vertices) noexcept(true)
 	{
 		// Note: We onlt need the first three points on the face to calculate its normal.
-		noob::vec3<T> u = vertices[1] - vertices[0];
-		noob::vec3<T> v = vertices[2] - vertices[0];
-		noob::vec3<T> results = noob::cross(u, v);
+		noob::vec3_type<T> u = vertices[1] - vertices[0];
+		noob::vec3_type<T> v = vertices[2] - vertices[0];
+		noob::vec3_type<T> results = noob::cross(u, v);
 		return normalize(results);
 	}
 
 	// TODO: Implement. PITA (?)
 	// vec4 rotation_from_mat4(const mat4& m);
 	template <typename T>
-	static vec3<T> translation_from_mat4(const mat4<T>& m) noexcept(true)
+	static vec3_type<T> translation_from_mat4(const mat4_type<T>& m) noexcept(true)
 	{
-		vec3<T> v;
+		vec3_type<T> v;
 		v.v[0] = m.m[12];
 		v.v[1] = m.m[13];
 		v.v[2] = m.m[14];
@@ -715,9 +715,9 @@ namespace noob
 	}
 
 	template <typename T>
-	static vec3<T> scale_from_mat4(const mat4<T>& m) noexcept(true)
+	static vec3_type<T> scale_from_mat4(const mat4_type<T>& m) noexcept(true)
 	{
-		vec3<T> v;
+		vec3_type<T> v;
 		v.v[0] = m.m[0];
 		v.v[1] = m.m[5];
 		v.v[2] = m.m[10];
@@ -731,20 +731,20 @@ namespace noob
 
 	// Returns a view matrix using the opengl lookAt style. COLUMN ORDER:
 	template <typename T>
-	static mat4<T> look_at(const vec3<T> cam_pos, vec3 targ_pos, const vec3<T> up) noexcept(true)
+	static mat4_type<T> look_at(const vec3_type<T> cam_pos, vec3 targ_pos, const vec3_type<T> up) noexcept(true)
 	{
 		// inverse translation
-		mat4<T> p = identity_mat4();
-		p = translate(p, vec3<T>(-cam_pos.v[0], -cam_pos.v[1], -cam_pos.v[2]));
+		mat4_type<T> p = identity_mat4();
+		p = translate(p, vec3_type<T>(-cam_pos.v[0], -cam_pos.v[1], -cam_pos.v[2]));
 		// distance vector
-		vec3<T> d = targ_pos - cam_pos;
+		vec3_type<T> d = targ_pos - cam_pos;
 		// forward vector
-		vec3<T> f = normalize(d);
+		vec3_type<T> f = normalize(d);
 		// right vector
-		vec3<T> r = normalize(cross(f, up));
+		vec3_type<T> r = normalize(cross(f, up));
 		// real up vector
-		vec3<T> u = normalize(cross(r, f));
-		mat4<T> ori = identity_mat4();
+		vec3_type<T> u = normalize(cross(r, f));
+		mat4_type<T> ori = identity_mat4();
 		ori.m[0] = r.v[0];
 		ori.m[4] = r.v[1];
 		ori.m[8] = r.v[2];
@@ -760,7 +760,7 @@ namespace noob
 
 	// returns a perspective function mimicking the opengl projection style.
 	template <typename T>
-	static mat4<T> perspective(float fovy, float aspect, float near, float far) noexcept(true)
+	static mat4_type<T> perspective(float fovy, float aspect, float near, float far) noexcept(true)
 	{
 		float fov_rad = fovy * NOOB_ONE_DEG_IN_RAD;
 		float range = tan (fov_rad / 2.0f) * near;
@@ -768,7 +768,7 @@ namespace noob
 		float sy = near / range;
 		float sz = -(far + near) / (far - near);
 		float pz = -(2.0f * far * near) / (far - near);
-		mat4<T> m = zero_mat4<T>(); // make sure bottom-right corner is zero
+		mat4_type<T> m = zero_mat4_type<T>(); // make sure bottom-right corner is zero
 		m.m[0] = sx;
 		m.m[5] = sy;
 		m.m[10] = sz;
@@ -784,9 +784,9 @@ namespace noob
 	   3 7 11 15
 	   */
 	template <typename T>
-	static mat4<T> mat4 ortho(float left, float right, float bottom, float top, float near, float far) noexcept(true)
+	static mat4_type<T> mat4 ortho(float left, float right, float bottom, float top, float near, float far) noexcept(true)
 	{
-		mat4<T> m = zero_mat4();
+		mat4_type<T> m = zero_mat4();
 		m.m[0] = 2.0/(right-left);
 		m.m[5] = 2.0/(top - bottom);
 		m.m[10] = -2.0/(far - near);
@@ -802,7 +802,7 @@ namespace noob
 	// GEOMETRY UTILITY FUNCTIONS:
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	template <typename T>
-	static bbox<T> update_bbox(const noob::bbox<T>& b, const noob::vec3<T>& v)
+	static bbox<T> update_bbox(const noob::bbox<T>& b, const noob::vec3_type<T>& v)
 	{
 		bbox bb<T>;
 
