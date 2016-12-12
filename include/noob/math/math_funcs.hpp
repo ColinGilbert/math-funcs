@@ -610,7 +610,7 @@ namespace noob
 	template <typename T>
 	static mat4_type<T> translate(const mat4_type<T>& m, const vec3_type<T> v) noexcept(true)
 	{
-		mat4_type<T> m_t = identity_mat4();
+		mat4_type<T> m_t = identity_mat4<T>();
 		m_t.m[12] = v.v[0];
 		m_t.m[13] = v.v[1];
 		m_t.m[14] = v.v[2];
@@ -628,7 +628,7 @@ namespace noob
 	{
 		// convert to radians
 		float rad = deg * NOOB_ONE_DEG_IN_RAD;
-		mat4_type<T> m_r = identity_mat4<T>();
+		mat4_type<T> m_r = identity_mat4<T><T>();
 		m_r.m[5] = cos(rad);
 		m_r.m[9] = -sin(rad);
 		m_r.m[6] = sin(rad);
@@ -641,7 +641,7 @@ namespace noob
 	{
 		// convert to radians
 		const float rad = deg * NOOB_ONE_DEG_IN_RAD;
-		auto m_r = identity_mat4();
+		mat4_type<T> m_r = identity_mat4<T>();
 		m_r.m[0] = cos(rad);
 		m_r.m[8] = sin(rad);
 		m_r.m[2] = -sin(rad);
@@ -654,7 +654,7 @@ namespace noob
 	{
 		// convert to radians
 		const float rad = deg * NOOB_ONE_DEG_IN_RAD;
-		mat4_type<T> m_r = identity_mat4();
+		mat4_type<T> m_r = identity_mat4<T>();
 		m_r.m[0] = cos(rad);
 		m_r.m[4] = -sin(rad);
 		m_r.m[1] = sin(rad);
@@ -665,7 +665,7 @@ namespace noob
 	template <typename T>
 	static mat4_type<T> scale(const mat4_type<T>& m, const vec3_type<T> v) noexcept(true)
 	{
-		mat4_type<T> a = identity_mat4();
+		mat4_type<T> a = identity_mat4<T>();
 		a.m[0] = v.v[0];
 		a.m[5] = v.v[1];
 		a.m[10] = v.v[2];
@@ -713,7 +713,7 @@ namespace noob
 	static mat4_type<T> look_at(const vec3_type<T> cam_pos, const vec3_type<T> targ_pos, const vec3_type<T> up) noexcept(true)
 	{
 		// inverse translation
-		mat4_type<T> p = identity_mat4();
+		mat4_type<T> p = identity_mat4<T>();
 		p = translate(p, vec3_type<T>(-cam_pos[0], -cam_pos[1], -cam_pos[2]));
 		// distance vector
 		vec3_type<T> d = targ_pos - cam_pos;
@@ -723,7 +723,7 @@ namespace noob
 		vec3_type<T> r = normalize(cross(f, up));
 		// real up vector
 		vec3_type<T> u = normalize(cross(r, f));
-		mat4_type<T> ori = identity_mat4();
+		mat4_type<T> ori = identity_mat4<T>();
 		ori.m[0] = r.v[0];
 		ori.m[4] = r.v[1];
 		ori.m[8] = r.v[2];
@@ -747,7 +747,7 @@ namespace noob
 		float sy = near / range;
 		float sz = -(far + near) / (far - near);
 		float pz = -(2.0f * far * near) / (far - near);
-		mat4_type<T> m = zero_mat4(); // make sure bottom-right corner is zero
+		template mat4_type<T> m = zero_mat4(); // make sure bottom-right corner is zero
 		m.m[0] = sx;
 		m.m[5] = sy;
 		m.m[10] = sz;
