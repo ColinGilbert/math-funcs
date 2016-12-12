@@ -693,7 +693,7 @@ namespace noob
 		return a * m;
 	}
 	template <typename T>
-	static vec3_type<T> get_normal(const std::array<noob::vec3, 3>& vertices) noexcept(true)
+	static vec3_type<T> get_normal(const std::array<vec3_type<T>, 3>& vertices) noexcept(true)
 	{
 		// Note: We onlt need the first three points on the face to calculate its normal.
 		noob::vec3_type<T> u = vertices[1] - vertices[0];
@@ -768,7 +768,7 @@ namespace noob
 		float sy = near / range;
 		float sz = -(far + near) / (far - near);
 		float pz = -(2.0f * far * near) / (far - near);
-		mat4_type<T> m = zero_mat4_type<T>(); // make sure bottom-right corner is zero
+		mat4_type<T> m = zero_mat4(); // make sure bottom-right corner is zero
 		m.m[0] = sx;
 		m.m[5] = sy;
 		m.m[10] = sz;
