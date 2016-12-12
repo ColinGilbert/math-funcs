@@ -25,6 +25,7 @@
 #include "mat3.hpp"
 #include "mat4.hpp"
 #include "plane.hpp"
+#include "bbox.hpp"
 
 namespace noob
 {
