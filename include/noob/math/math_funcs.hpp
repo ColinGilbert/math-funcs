@@ -443,7 +443,7 @@ namespace noob
 	}
 
 	template <typename T>
-	static mat4_type<T> zero_mat4() noexcept(true)
+	static mat4_type<T> zero_mat4 noexcept(true)
 	{
 		return mat4_type<T>(	0.0f, 0.0f, 0.0f, 0.0f,
 				0.0f, 0.0f, 0.0f, 0.0f,
@@ -747,7 +747,7 @@ namespace noob
 		float sy = near / range;
 		float sz = -(far + near) / (far - near);
 		float pz = -(2.0f * far * near) / (far - near);
-		template mat4_type<T> m = zero_mat4(); // make sure bottom-right corner is zero
+		template mat4_type<T> m = zero_mat4<T>; // make sure bottom-right corner is zero
 		m.m[0] = sx;
 		m.m[5] = sy;
 		m.m[10] = sz;
@@ -765,7 +765,7 @@ namespace noob
 	template <typename T>
 	static mat4_type<T> mat4 ortho(float left, float right, float bottom, float top, float near, float far) noexcept(true)
 	{
-		mat4_type<T> m = zero_mat4();
+		mat4_type<T> m = zero_mat4<T>;
 		m.m[0] = 2.0/(right-left);
 		m.m[5] = 2.0/(top - bottom);
 		m.m[10] = -2.0/(far - near);
