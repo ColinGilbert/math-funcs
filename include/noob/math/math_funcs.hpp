@@ -793,7 +793,7 @@ namespace noob
 		results.max[1] = std::max(b.max[1], v[1]);
 		results.max[2] = std::max(b.max[2], v[2]);
 
-		return bb;
+		return results;
 	}
 
 	template <typename T>
