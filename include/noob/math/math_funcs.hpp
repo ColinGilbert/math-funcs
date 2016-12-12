@@ -72,14 +72,6 @@ namespace noob
 	};
 
 
-/*
-	template <typename T>
-	struct cubic_region
-	{
-		vec3_type<T> lower_corner, upper_corner;
-	};
-*/
-
 	static uint32_t next_pow2(uint32_t arg)
 	{
 		int64_t val = arg;
@@ -718,11 +710,11 @@ namespace noob
 
 	// Returns a view matrix using the opengl lookAt style. COLUMN ORDER:
 	template <typename T>
-	static mat4_type<T> look_at(const vec3_type<T> cam_pos, vec3 targ_pos, const vec3_type<T> up) noexcept(true)
+	static mat4_type<T> look_at(const vec3_type<T> cam_pos, const vec3<T> targ_pos, const vec3_type<T> up) noexcept(true)
 	{
 		// inverse translation
 		mat4_type<T> p = identity_mat4();
-		p = translate(p, vec3_type<T>(-cam_pos.v[0], -cam_pos.v[1], -cam_pos.v[2]));
+		p = translate(p, vec3_type<T>(-cam_pos[0], -cam_pos[1], -cam_pos[2]));
 		// distance vector
 		vec3_type<T> d = targ_pos - cam_pos;
 		// forward vector
