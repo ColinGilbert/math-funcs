@@ -443,7 +443,7 @@ namespace noob
 	}
 
 	template <typename T>
-	static mat4_type<T> zero_mat4 noexcept(true)
+	static mat4_type<T> zero_mat4() noexcept(true)
 	{
 		return mat4_type<T>(	0.0f, 0.0f, 0.0f, 0.0f,
 				0.0f, 0.0f, 0.0f, 0.0f,
@@ -747,7 +747,7 @@ namespace noob
 		float sy = near / range;
 		float sz = -(far + near) / (far - near);
 		float pz = -(2.0f * far * near) / (far - near);
-		template mat4_type<T> m = zero_mat4<T>; // make sure bottom-right corner is zero
+		mat4_type<T> m = zero_mat4<T>; // make sure bottom-right corner is zero
 		m.m[0] = sx;
 		m.m[5] = sy;
 		m.m[10] = sz;
