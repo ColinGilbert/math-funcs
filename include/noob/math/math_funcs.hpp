@@ -394,7 +394,7 @@ namespace noob
 	template <typename T>
 	static versor_type<T> versor_from_axis_deg(float degrees, float x, float y, float z) noexcept(true)
 	{
-		return versor_from_axis_rad(NOOB_ONE_DEG_IN_RAD * degrees, x, y, z);
+		return decltype(versor_from_axis_rad(NOOB_ONE_DEG_IN_RAD * degrees, x, y, z));
 	}
 
 	template <typename T>
