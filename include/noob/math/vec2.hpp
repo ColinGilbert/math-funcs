@@ -31,6 +31,14 @@ namespace noob
 				return v[x];
 			}
 
+			vec2_type operator+(const vec2_type& rhs) const noexcept(true)
+			{
+				vec2_type vc;
+				vc.v[0] = v[0] + rhs[0];
+				vc.v[1] = v[1] + rhs[1];
+				return vc;
+			}
+
 			vec2_type& operator+=(const vec2_type& rhs) noexcept(true)
 			{
 				v[0] += rhs.v[0];
@@ -51,22 +59,6 @@ namespace noob
 				v[0] -= rhs.v[0];
 				v[1] -= rhs.v[1];
 				return *this;
-			}
-
-			vec2_type operator+(const vec2_type& rhs) const noexcept(true)
-			{
-				vec2_type vc;
-				vc.v[0] = v[0] + vv[0];
-				vc.v[1] = v[1] + vv[1];
-				return vc;
-			}
-
-			vec2_type operator-(const vec2_type& rhs) const noexcept(true)
-			{
-				vec2_type vc;
-				vc.v[0] = v[0] - rhs[0];
-				vc.v[1] = v[1] - rhs[1];
-				return vc;
 			}
 
 			vec2_type operator+(T rhs) const noexcept(true)
