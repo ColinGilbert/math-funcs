@@ -133,13 +133,13 @@ namespace noob
 	template <typename T>
 		static vec2_type<T> min(const noob::vec2_type<T> A, const noob::vec2_type<T> B)
 		{
-			return noob::vec2_type(std::min(A[0], B[0]), std::min(A[1], B[1]));
+			return noob::vec2_type<T>(std::min(A[0], B[0]), std::min(A[1], B[1]));
 		}
 
 	template <typename T>
 		static vec2_type<T> max(const noob::vec2_type<T> A, const noob::vec2_type<T> B)
 		{
-			return noob::vec2_type(std::max(A[0], B[0]), std::max(A[1], B[1]));
+			return noob::vec2_type<T>(std::max(A[0], B[0]), std::max(A[1], B[1]));
 		}
 
 
