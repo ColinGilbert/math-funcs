@@ -112,10 +112,17 @@ namespace noob
 		else return true;
 	}
 
-
-	// ENSURING DOUBLE-POINT PRECISION
+	// Making sure we don't have to use static_cast repeatedly:
 	template <typename First, typename Second> 
-		double div_dp(First first, Second second)
+		static double div_fp(First first, Second second)
+		{
+			return static_cast<float>(first) / static_cast<float>(second);
+		}
+
+
+	// Ensuring double-point precision:
+	template <typename First, typename Second> 
+		static double div_dp(First first, Second second)
 		{
 			return static_cast<double>(first) / static_cast<double>(second);
 		}
