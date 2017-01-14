@@ -63,19 +63,19 @@ namespace noob
 	template<typename From, typename To>
 	static noob::vec3_type<To> convert(const noob::vec3_type<From> Vec)
 	{
-		return noob::vec2_type<To>(static_cast<To>(Vec[0]), static_cast<To>(Vec[1]), static_cast<To>(Vec[2]));
+		return noob::vec3_type<To>(static_cast<To>(Vec[0]), static_cast<To>(Vec[1]), static_cast<To>(Vec[2]));
 	}
 
 	template<typename From, typename To>
 	static noob::vec4_type<To> convert(const noob::vec4_type<From> Vec)
 	{
-		return noob::vec2_type<To>(static_cast<To>(Vec[0]), static_cast<To>(Vec[1]), static_cast<To>(Vec[2]), static_cast<To>(Vec[3]));
+		return noob::vec4_type<To>(static_cast<To>(Vec[0]), static_cast<To>(Vec[1]), static_cast<To>(Vec[2]), static_cast<To>(Vec[3]));
 	}
 
 	template<typename From, typename To>
 	static noob::versor_type<To> convert(const noob::versor_type<From> Versor)
 	{
-		return noob::vec2_type<To>(static_cast<To>(Versor[0]), static_cast<To>(Versor[1]), static_cast<To>(Versor[2]), static_cast<To>(Versor[3]));
+		return noob::versor_type<To>(static_cast<To>(Versor[0]), static_cast<To>(Versor[1]), static_cast<To>(Versor[2]), static_cast<To>(Versor[3]));
 	}
 
 
