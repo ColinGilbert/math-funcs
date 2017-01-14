@@ -50,11 +50,55 @@ namespace noob
 	typedef mat3_type<uint32_t> mat3ui;
 	typedef mat4_type<uint32_t> mat4ui;
 
+	/////////////////////////
+	// CONVERSION FUNCTIONS:
+	/////////////////////////
+/*
+	static noob::vec2f convert(const noob::vec2d Vec)
+	{
+		return noob::vec2f(Vec[0], Vec[1]);
+	}
+
+	static noob::vec3f convert(const noob::vec2d Vec)
+	{
+		return noob::vec2f(Vec[0], Vec[1]);
+	}
+
+	static noob::vec3f convert(const noob::vec2d Vec)
+	{
+		return noob::vec2f(Vec[0], Vec[1]);
+	}
+
+	static noob::vec4f convert(const noob::vec2d Vec)
+	{
+		return noob::vec2f(Vec[0], Vec[1]);
+	}
+
+	static versorf convert(const noob::vec2d Vec)
+	{
+		return noob::vec2f(Vec[0], Vec[1]);
+	}
+
+	static mat3f convert(const noob::vec2d Vec)
+	{
+		return noob::vec2f(Vec[0], Vec[1]);
+	}
+
+	static mat4f convert(const noob::vec2d Vec)
+	{
+		return noob::vec2f(Vec[0], Vec[1]);
+	}
+*/
+	template<typename From, typename To>
+	static noob::vec2_type<To> convert(const noob::vec2_type<From> Vec)
+	{
+		return noob::vec2_type<To>(static_cast<To>(Vec[0]), static_cast<To>(Vec[1]));
+	}
 
 
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////
 	// UTILITY TYPES:
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////
 
 	enum class binary_op
 	{
@@ -84,12 +128,12 @@ namespace noob
 		return val;
 	}
 
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////
 	// ONE-FLOAT FUNCTIONS:
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////
 	// TODO: Test
 
-	template <typename T> int sign(T val) noexcept(true)
+	template <typename T> static int sign(T val) noexcept(true)
 	{
 		return (T(0) < val) - (val < T(0));
 	}
@@ -101,9 +145,9 @@ namespace noob
 		else return true;
 	}
 
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////
 	// TWO-FLOAT FUNCTIONS(S):
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////
 
 	static bool compare_floats(float a, float b) noexcept(true)
 	{
