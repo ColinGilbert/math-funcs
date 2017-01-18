@@ -19,6 +19,30 @@ namespace noob
 				q[3] = w;
 			}
 
+			versor_type(T x, T y, T z, T w) noexcept(true)
+			{
+				q[0] = x;
+				q[1] = y;
+				q[2] = z;
+				q[3] = w;
+			}
+
+			versor_type(const std::array<T, 4>& Arg) noexcept(true)
+			{
+				q[0] = Arg[0];
+				q[1] = Arg[1];
+				q[2] = Arg[2];
+				q[3] = Arg[3];
+			}
+
+			versor_type(const noob::vec4_type<T>& Arg) noexcept(true)
+			{
+				q[0] = Arg[0];
+				q[1] = Arg[1];
+				q[2] = Arg[2];
+				q[3] = Arg[3];
+			}
+
 			versor_type operator/(T rhs) const noexcept(true)
 			{
 				versor_type result;
