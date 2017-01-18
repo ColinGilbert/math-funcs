@@ -2,6 +2,7 @@
 
 #include <array>
 
+#include "vec3.hpp"
 #include "vec4.hpp"
 
 namespace noob
@@ -19,14 +20,13 @@ namespace noob
 				q[3] = w;
 			}
 
-			versor_type(T x, T y, T z, T w) noexcept(true)
+			versor_type(const noob::vec3_type<T>& Arg, T w) noexcept(true)
 			{
-				q[0] = x;
-				q[1] = y;
-				q[2] = z;
+				q[0] = Arg[0];
+				q[1] = Arg[1];
+				q[2] = Arg[2];
 				q[3] = w;
 			}
-
 			versor_type(const std::array<T, 4>& Arg) noexcept(true)
 			{
 				q[0] = Arg[0];
