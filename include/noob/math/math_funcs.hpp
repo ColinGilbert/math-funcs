@@ -269,6 +269,16 @@ namespace noob
 		return qq;
 	}
 
+	static btQuaternion btQuaternion(const noob::versorf arg) noexcept(true)
+	{
+		btQuaternion qq;
+		qq[0] = arg.q[0];
+		qq[1] = arg.q[1];
+		qq[2] = arg.q[2];
+		qq[3] = arg.q[3];
+	}
+
+
 	static versorf versorf_from_eigen(const Eigen::Quaternion<float>& arg) noexcept(true)
 	{
 		noob::versorf qq;
