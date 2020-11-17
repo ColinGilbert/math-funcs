@@ -271,7 +271,7 @@ namespace noob
 
 	static btQuaternion versorf_to_bullet(const noob::versorf & arg) noexcept(true)
 	{
-		btQuaternion results(arg.q[0], arg.q[1], arg.q[2], arg[3]];
+		btQuaternion results(arg.q[0], arg.q[1], arg.q[2], arg[3]);
 		return results;
 	}
 
